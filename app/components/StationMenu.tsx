@@ -3,8 +3,12 @@ import { Link } from '@remix-run/react';
 import { LayoutDashboard } from 'lucide-react';
 
 
+interface StationMenuProps {
+    isActive: (path: string) => boolean;
+    isSidebarOpen: boolean;
+}
 
-const StationMenu  = ({ isActive, isSidebarOpen }) => {
+const StationMenu: React.FC<StationMenuProps>  = ({ isActive, isSidebarOpen }) => {
     return (
         <li className="p-4">
             <Link

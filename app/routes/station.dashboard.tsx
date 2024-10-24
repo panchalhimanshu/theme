@@ -1,13 +1,20 @@
+import Button from '~/components/Button';
 import Layout from '~/components/Layout';
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
-
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  website: string;
+}
 
 export default function Index() {
-  const [users, setUsers] = useState([]);
-  const [data, setData] = useState([]);
-  const [sortedData, setSortedData] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [data, setData] = useState<any[]>([]);
+  const [sortedData, setSortedData] = useState<any[]>([]);
   const [sort, setSort] = useState({ column: '', order: '' });
 
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function Index() {
       });
   }, []);
 
-  const handleSort = (column) => {
+  const handleSort = (column: string) => {
     const sorted = [...sortedData];
     if (sort.column === column) {
       sorted.reverse();

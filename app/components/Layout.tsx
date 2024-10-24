@@ -6,14 +6,14 @@ import AdminMenu from './AdminMenu';
 import StationMenu from './StationMenu';
 import WarehouseMenu from './WarehouseMenu';
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [roleId, setRoleId] = useState(null);
-    const [hoveredMenu, setHoveredMenu] = useState(null);
-    const [openMenus, setOpenMenus] = useState([]);
+    const [roleId, setRoleId] = useState<number | null>(null);
+    const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+    const [openMenus, setOpenMenus] = useState<string[]>([]);
     const [theme, setTheme] = useState<'light' | 'dark'>(() => {
         if (typeof window !== 'undefined') {
             const storedTheme = localStorage.getItem('theme');
@@ -44,8 +44,13 @@ const Layout = ({ children }) => {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            document.documentElement.classList.toggle('dark', theme === 'dark');
-            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
         }
     }, [theme]);
 
@@ -61,13 +66,13 @@ const Layout = ({ children }) => {
         navigate('/');
     };
 
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path: string) => location.pathname === path;
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(prevState => !prevState);
+        setIsSidebarOpen(!isSidebarOpen);
     };
 
-    const handleMenuHover = (menuName) => {
+    const handleMenuHover = (menuName: string) => {
         if (!isSidebarOpen) {
             setHoveredMenu(menuName);
         }
@@ -79,7 +84,7 @@ const Layout = ({ children }) => {
         }
     };
 
-    const toggleMenu = (menuName) => {
+    const toggleMenu = (menuName: string) => {
         setOpenMenus(prevOpenMenus =>
             prevOpenMenus.includes(menuName)
                 ? prevOpenMenus.filter(name => name !== menuName)
@@ -87,16 +92,24 @@ const Layout = ({ children }) => {
         );
     };
 
-    const isMenuOpen = (menuName) => openMenus.includes(menuName);
+    const isMenuOpen = (menuName: string) => openMenus.includes(menuName);
 
     const toggleFullscreen = () => {
         if (!isFullscreen) {
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
             }
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.documentElement.exitFullscreen();
             }
         }
         setIsFullscreen(!isFullscreen);
