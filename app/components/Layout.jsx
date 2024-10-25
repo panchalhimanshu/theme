@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from '@remix-run/react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Maximize2, Minimize2, ArrowLeftToLine, ArrowRightFromLine } from 'lucide-react';
+import { Sun, Moon, Maximize2, Minimize2, ArrowLeftToLine, ArrowRightFromLine, Bell, ArrowUp } from 'lucide-react';
 import AdminMenu from './AdminMenu';
 import StationMenu from './StationMenu';
 import WarehouseMenu from './WarehouseMenu';
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [roleId, setRoleId] = useState<number | null>(null);
-    const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-    const [openMenus, setOpenMenus] = useState<string[]>([]);
-    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const [roleId, setRoleId] = useState(null);
+    const [hoveredMenu, setHoveredMenu] = useState(null);
+    const [openMenus, setOpenMenus] = useState([]);
+    const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             const storedTheme = localStorage.getItem('theme');
             return storedTheme === 'dark' ? 'dark' : 'light';
         }
-        return 'light'; // Fallback for SSR
+        return 'light';
     });
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+    const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useState(false);
+    const [showScrollButton, setShowScrollButton] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollButton(window.scrollY > 250);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const toggleNotificationDropdown = () => {
+        setIsNotificationDropdownOpen(prevState => !prevState);
+    };
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -66,13 +85,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         navigate('/');
     };
 
-    const isActive = (path: string) => location.pathname === path;
+    const isActive = (path) => location.pathname === path;
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    const handleMenuHover = (menuName: string) => {
+    const handleMenuHover = (menuName) => {
         if (!isSidebarOpen) {
             setHoveredMenu(menuName);
         }
@@ -84,7 +103,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    const toggleMenu = (menuName: string) => {
+    const toggleMenu = (menuName) => {
         setOpenMenus(prevOpenMenus =>
             prevOpenMenus.includes(menuName)
                 ? prevOpenMenus.filter(name => name !== menuName)
@@ -92,7 +111,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         );
     };
 
-    const isMenuOpen = (menuName: string) => openMenus.includes(menuName);
+    const isMenuOpen = (menuName) => openMenus.includes(menuName);
 
     const toggleFullscreen = () => {
         if (!isFullscreen) {
@@ -143,14 +162,49 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                             </button>
                         </div>
                         <div className="flex items-center">
+                            <button
+                                className={`focus:outline-none rounded-full hover:bg-purple-600 hover:text-white p-1 mr-4 ${isNotificationDropdownOpen ? 'bg-[#836bfa] text-white' : 'text-gray-400'}`}
+                                onClick={toggleNotificationDropdown}
+                            >
+                                <Bell className="w-6 h-6" />
+                            </button>
+                            {isNotificationDropdownOpen && (
+                                <div className="absolute right-5 top-20 mt-2 w-60 bg-white shadow-lg py-2 z-50 max-h-[500px] overflow-y-auto text-gray-700">
+                                    <div className="flex justify-between items-center px-4 py-2 border-b border-gray-300">
+                                        <span className="font-semibold">Notifications</span>
+                                        <button onClick={toggleNotificationDropdown} className="text-gray-500 hover:text-gray-800">
+                                            ✕
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+                                        <p className="px-4 py-2">No new notifications</p>
+
+                                    </div>
+                                </div>
+                            )}
                             <button className="text-gray-600 dark:text-gray-400 focus:outline-none mr-4" onClick={toggleTheme}>
-                                {theme === 'light' ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6" />}
+                                {theme === 'light' ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6 text-yellow-500" />}
                             </button>
                             <button className="text-gray-600 dark:text-gray-400 focus:outline-none mr-4" onClick={toggleFullscreen}>
                                 {isFullscreen ? <Minimize2 className="w-6 h-6" /> : <Maximize2 className="w-6 h-6" />}
                             </button>
-
-                            {/* Avatar with dropdown */}
                             <div className="relative">
                                 <button
                                     onClick={toggleAvatarDropdown}
@@ -158,7 +212,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                                 >
                                     H
                                 </button>
-
                                 {isAvatarDropdownOpen && (
                                     <div className={`absolute right-0 mt-2 w-36 bg-gray-100 dark:text-black dark:bg-gray-100 shadow-lg rounded-lg py-2`}>
                                         <Link to="/profile" className="block px-4 py-2 text-gray-700 dark:text-black hover:bg-gray-100 dark:hover:bg-[#836bfa] dark:hover:text-white">
@@ -176,6 +229,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
                 <main className="p-5 flex-grow overflow-y-auto">{children}</main>
             </div>
+
+            {showScrollButton && (
+                <button
+                    onClick={scrollToTop}
+                    className="fixed bottom-5 right-5 bg-[#836bfa] text-white p-2 rounded-full hover:bg-purple-600 transition-all animate-bounceUpDown"
+                >
+                    <ArrowUp />
+                </button>
+            )}
         </div>
     );
 };

@@ -3,18 +3,12 @@ import Layout from '~/components/Layout';
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  website: string;
-}
+
 
 export default function Index() {
-  const [users, setUsers] = useState<User[]>([]);
-  const [data, setData] = useState<any[]>([]);
-  const [sortedData, setSortedData] = useState<any[]>([]);
+  const [users, setUsers] = useState([]);
+  const [data, setData] = useState([]);
+  const [sortedData, setSortedData] = useState([]);
   const [sort, setSort] = useState({ column: '', order: '' });
 
   useEffect(() => {
@@ -37,7 +31,7 @@ export default function Index() {
       });
   }, []);
 
-  const handleSort = (column: string) => {
+  const handleSort = (column) => {
     const sorted = [...sortedData];
     if (sort.column === column) {
       sorted.reverse();
@@ -51,7 +45,7 @@ export default function Index() {
 
   return (
     <Layout>
-   <div className="container mx-auto p-4 pt-2 mt-5">
+   <div className="container mx-auto p-4 pt-6 mt-10">
       <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
       <div className="flex flex-wrap -mx-4">
         <div className="w-full xl:w-6/12 p-4">
