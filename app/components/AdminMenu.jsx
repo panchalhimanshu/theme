@@ -15,7 +15,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
             <li className="px-4 py-2">
                 <Link
                     to="/admin/dashboard"
-                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                 >
                     <LayoutDashboard className="w-5 h-5" />
                     {isSidebarOpen && <span>Admin Dashboard</span>}
@@ -28,7 +28,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                 onMouseLeave={handleMenuLeave}
             >
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageUsersOpen ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageUsersOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => {
                         if (!isManageUsersOpen || !isUserRouteActive) {
                             toggleMenu('manageUsers');
@@ -48,11 +48,11 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                     )}
                 </div>
                 {((isSidebarOpen && isManageUsersOpen) || (!isSidebarOpen && hoveredMenu === 'manageUsers')) && (
-                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
+                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/user1"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>User1</span>
                             </Link>
@@ -60,7 +60,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/user2"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>User2</span>
                             </Link>
@@ -76,7 +76,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                 onMouseLeave={handleMenuLeave}
             >
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageRolesOpen ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageRolesOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('manageRoles')}
                 >
                     <User className="w-5 h-5" /> {/* Replace with a different icon if desired */}
@@ -92,11 +92,11 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                     )}
                 </div>
                 {((isSidebarOpen && isManageRolesOpen) || (!isSidebarOpen && hoveredMenu === 'manageRoles')) && (
-                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
+                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/role1"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/role1') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/role1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>Role1</span>
                             </Link>
@@ -104,7 +104,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/role2"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/role2') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/role2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>Role2</span>
                             </Link>
@@ -120,7 +120,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                 onMouseLeave={handleMenuLeave}
             >
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('manageSettings')}
                 >
                     <Settings className="w-5 h-5" />
@@ -136,11 +136,11 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                     )}
                 </div>
                 {((isSidebarOpen && isManageSettingsOpen) || (!isSidebarOpen && hoveredMenu === 'manageSettings')) && (
-                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
+                    <ul className={`${isSidebarOpen ? 'ml-6 mt-2 px-2' : 'absolute p-2 top-0 z-50 left-full mt-2'} border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-opacity duration-300`}>
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/general-settings"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/general-settings') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/general-settings') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>General Settings</span>
                             </Link>
@@ -148,7 +148,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
                         <li className={`${isSidebarOpen ? ' my-2 ' : ''}`}>
                             <Link
                                 to="/admin/security-settings"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/security-settings') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/security-settings') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <span>Security Settings</span>
                             </Link>
@@ -160,7 +160,7 @@ const AdminMenu = ({ isActive, isSidebarOpen, toggleMenu, isMenuOpen, hoveredMen
             <li className="px-4 py-2">
                 <Link
                     to="/admin/settings"
-                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/settings') ? 'bg-[#836bfa] text-white' : 'hover:bg-[#836bfa] hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/settings') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                 >
                     <Settings className="w-5 h-5" />
                     {isSidebarOpen && <span>Admin Settings</span>}
