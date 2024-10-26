@@ -134,19 +134,20 @@ const Layout = ({ children }) => {
         setIsFullscreen(!isFullscreen);
     };
 
+    
     const toggleAvatarDropdown = () => {
         setIsAvatarDropdownOpen(prevState => !prevState);
     };
 
     return (
         <div className={`flex min-h-screen dark:bg-black dark:text-white  bg-white text-black'`}>
-            <aside className={`fixed left-0 shadow top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${isSidebarOpen ? 'w-64' : 'w-18'}`}>
+            <aside className={`fixed left-0 shadow   top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${isSidebarOpen ? 'w-64' : 'w-18'}`}>
                 <div className="p-4 pt-5  dark:text-white text-black text-center text-2xl font-bold border border-r-0 border-gray-300">
-                    {isSidebarOpen ? 'Dashboard' : 'D'}
+                    {isSidebarOpen ? 'ResPos' : 'RP'}
                 </div>
                 <nav className="mt-10">
                     <ul>
-                    {roleId == 3 && <AdminMenu isActive={isActive} isSidebarOpen={isSidebarOpen} toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} hoveredMenu={hoveredMenu} handleMenuHover={handleMenuHover} handleMenuLeave={handleMenuLeave} />}
+                    <AdminMenu isActive={isActive} isSidebarOpen={isSidebarOpen} toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} hoveredMenu={hoveredMenu} handleMenuHover={handleMenuHover} handleMenuLeave={handleMenuLeave} />
                         {roleId == 4 && <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
                         {roleId == 5 && <WarehouseMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
                     </ul>
@@ -227,7 +228,7 @@ const Layout = ({ children }) => {
                     </div>
                 </header>
 
-                <main className="p-5 flex-grow overflow-y-auto">{children}</main>
+                <main className="p-5 flex-grow overflow-y-auto ">{children}</main>
             </div>
 
             {showScrollButton && (
