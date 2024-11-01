@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from '@remix-run/react';
 import { useNavigate } from 'react-router-dom';
-import { Sun, Moon, Maximize2, Minimize2, ArrowLeftToLine, ArrowRightFromLine, Bell, ArrowUp } from 'lucide-react';
+import { Sun, Moon, Maximize, Minimize, ArrowLeftToLine, ArrowRightFromLine, Bell, ArrowUp } from 'lucide-react';
 import AdminMenu from './AdminMenu';
 import StationMenu from './StationMenu';
 import WarehouseMenu from './WarehouseMenu';
+import { toast, Toaster } from 'react-hot-toast'; 
 
 const Layout = ({ children }) => {
     const navigate = useNavigate();
@@ -48,7 +49,8 @@ const Layout = ({ children }) => {
             const remixdatas = sessionStorage.getItem('remixdata');
             if (remixdatas) {
                 const storedRoleIds = JSON.parse(atob(remixdatas));
-                const storedRoleId = storedRoleIds?.user.roleid;
+                console.log(storedRoleIds,"dataremix");
+                const storedRoleId = storedRoleIds?.user.roleId;
 
                 if (storedRoleId) {
                     setRoleId(Number(storedRoleId));
@@ -141,20 +143,25 @@ const Layout = ({ children }) => {
 
     return (
         <div className={`flex min-h-screen dark:bg-black dark:text-white  bg-white text-black'`}>
-            <aside className={`fixed left-0 shadow   top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${isSidebarOpen ? 'w-64' : 'w-18'}`}>
+                   <Toaster />
+            <aside className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${isSidebarOpen ? 'w-64 overflow-y-auto' : 'w-18 '}`}>
                 <div className="p-4 pt-5  dark:text-white text-black text-center text-2xl font-bold border border-r-0 border-gray-300">
-                    {isSidebarOpen ? 'ResPos' : 'RP'}
+                    {/* {isSidebarOpen ? 'ResPos' : 'RP'} */}
+                    <h1 className={` ${isSidebarOpen ? 'text-[40px]' : 'text-[25px] '} font-bold `}>
+                        {isSidebarOpen ? 
+                    <> Res<span className="text-gray-500">POS</span></> : <> R<span className="text-gray-500">P</span></>}
+            </h1>
                 </div>
                 <nav className="mt-10">
                     <ul>
-                    <AdminMenu isActive={isActive} isSidebarOpen={isSidebarOpen} toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} hoveredMenu={hoveredMenu} handleMenuHover={handleMenuHover} handleMenuLeave={handleMenuLeave} />
-                        {roleId == 4 && <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
-                        {roleId == 5 && <WarehouseMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
+                    {roleId == 1 &&  <AdminMenu isActive={isActive} isSidebarOpen={isSidebarOpen} toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} hoveredMenu={hoveredMenu} handleMenuHover={handleMenuHover} handleMenuLeave={handleMenuLeave} />}
+                        {roleId == 2 && <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
+                        {roleId == 3 && <WarehouseMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />}
                     </ul>
                 </nav>
             </aside>
 
-            <div className={`flex flex-col flex-grow transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-[70px]'}`}>
+            <div className={`flex flex-col flex-grow transition-all duration-75 ${isSidebarOpen ? 'ml-64' : 'ml-[70px]'}`}>
                 <header className={`dark:bg-black dark:text-white  bg-white text-black hadow p-4 pb-3 border border-l-0 border-gray-300  sticky top-0 z-50`}>
                     <div className=" flex justify-between items-center">
                         <div className="flex items-center">
@@ -200,12 +207,13 @@ const Layout = ({ children }) => {
                                     </div>
                                 </div>
                             )}
+                             <button className="text-black dark:text-white focus:outline-none mr-4" onClick={toggleFullscreen}>
+                                {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
+                            </button>
                             <button className="text-black dark:text-white focus:outline-none mr-4" onClick={toggleTheme}>
                                 {theme === 'light' ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6 text-yellow-500" />}
                             </button>
-                            <button className="text-black dark:text-white focus:outline-none mr-4" onClick={toggleFullscreen}>
-                                {isFullscreen ? <Minimize2 className="w-6 h-6" /> : <Maximize2 className="w-6 h-6" />}
-                            </button>
+                           
                             <div className="relative">
                                 <button
                                     onClick={toggleAvatarDropdown}
@@ -228,7 +236,7 @@ const Layout = ({ children }) => {
                     </div>
                 </header>
 
-                <main className="p-5 flex-grow overflow-y-auto ">{children}</main>
+                <main className="p-5 flex-grow overflow-y-auto bg-gray-100 dark:bg-[#262A2D] ">{children}</main>
             </div>
 
             {showScrollButton && (

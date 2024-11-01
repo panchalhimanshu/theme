@@ -1,9 +1,10 @@
-import Layout from '~/components/Layout';
+import { Link } from '@remix-run/react';
+import Layout from '../components/Layout';
 
-export default function Widget() {
+export default function Waiter() {
   return (
     <Layout>
-      <div className="p-6 bg-background dark:bg-black bg-white" >
+      <div className="p-6 bg-background dark:bg-black bg-white rounded-lg" >
         <h2 className="text-2xl font-bold mb-4">Employee Management</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div>
@@ -28,7 +29,7 @@ export default function Widget() {
         <h3 className="text-xl font-semibold mt-8 mb-4">Employee List</h3>
         <div className="flex justify-between mb-4">
           <span className="text-muted-foreground"></span>
-          <button className="bg-black text-white p-2 rounded dark:bg-white dark:text-black">+ Add</button>
+          <button className="bg-black text-white p-2 rounded dark:bg-white dark:text-black"> <Link to="/admin/waiter/waiteradd"> + Add </Link></button>
         </div>
 
         <table className="min-w-full bg-card">
@@ -80,7 +81,7 @@ export default function Widget() {
               <td className="p-2">NA</td>
               <td className="p-2">02-06-2024</td>
               <td className="p-2">
-                <button className="text-blue-500">View</button>
+                <button className="text-blue-500"> <Link to={'/admin/waiter/waiterview/5'}> View</Link> </button>
               </td>
             </tr>
           </tbody>

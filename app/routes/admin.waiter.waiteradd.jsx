@@ -1,9 +1,18 @@
-import Layout from '~/components/Layout';
+import Layout from '../components/Layout';
+import { toast, Toaster } from 'react-hot-toast'; 
 
 export default function Settings() {
+
+  const handleclick = (e)=>{
+    e.preventDefault();
+
+    toast.success('Save');
+
+
+  }
   return (
     <Layout>
-      <div className="mx-auto p-6 dark:bg-black bg-white rounded-lg shadow-md">
+      <div className="mx-auto p-6 rounded-lg shadow-md dark:bg-black bg-white">
       <h2 className="text-2xl font-semibold mb-6">Employee Info</h2>
       <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -55,8 +64,9 @@ export default function Settings() {
           <input className="mt-1 block w-full border border-border rounded-md p-2" type="password" id="confirm-password" placeholder="Enter your password" />
         </div>
       </form>
-      <button className="mt-6 bg-secondary text-secondary-foreground hover:bg-secondary/80 py-2 px-4 rounded-lg">Save</button>
-    </div>
+	  <div className="flex justify-end mt-6">
+          <button className="bg-black text-white dark:bg-white dark:text-black py-2 px-4 rounded-lg" onClick={handleclick}>Save</button>
+        </div>    </div>
     </Layout>
   );
 }
