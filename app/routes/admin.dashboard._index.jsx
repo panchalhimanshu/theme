@@ -34,14 +34,6 @@ const inventory = [
 
 export default function Component() {
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    // Get theme from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    setIsDarkMode(savedTheme === 'dark');
-  });
-
   return (
     <Layout>
       <div className="space-y-6">
@@ -89,7 +81,7 @@ export default function Component() {
                 <BarChart width={500} height={300} data={salesData}>
                   <Bar
         dataKey="value"
-        fill={isDarkMode ? 'white' : 'hsl(var(--primary))'}
+        fill='#3B82F6'
         radius={[4, 4, 0, 0]}
       />
                 </BarChart>

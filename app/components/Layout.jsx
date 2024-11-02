@@ -211,7 +211,7 @@ const Layout = ({ children }) => {
                                 {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
                             </button>
                             <button className="text-black dark:text-white focus:outline-none mr-4" onClick={toggleTheme}>
-                                {theme === 'light' ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6 text-yellow-500" />}
+                                {theme === 'light' ? <Moon className="w-6 h-6" /> : <Sun className="w-6 h-6 text-yellow-400" />}
                             </button>
                            
                             <div className="relative">
@@ -242,7 +242,7 @@ const Layout = ({ children }) => {
             {showScrollButton && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-5 right-5 bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
+                    className="fixed bottom-5 right-5 dark:bg-white dark:text-black bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
                 >
                     <ArrowUp />
                 </button>
