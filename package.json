@@ -16,10 +16,12 @@
     "@remix-run/serve": "^2.13.1",
     "isbot": "^4.1.0",
     "lucide-react": "^0.453.0",
+    "property-expr": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
-    "recharts": "^2.13.0"
+    "recharts": "^2.13.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.13.1",
