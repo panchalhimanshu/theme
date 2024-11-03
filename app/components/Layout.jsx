@@ -59,11 +59,21 @@ const Layout = ({ children }) => {
       const remixdatas = sessionStorage.getItem("remixdata");
       if (remixdatas) {
         const storedRoleIds = JSON.parse(atob(remixdatas));
+        const pathname = location.pathname;
         console.log(storedRoleIds, "dataremix");
         const storedRoleId = storedRoleIds?.user.roleId;
+        // console.log(pathname,"pathname");//
 
         if (storedRoleId) {
           setRoleId(Number(storedRoleId));
+          if (
+            (storedRoleId == '1' && (pathname.startsWith('/station') || pathname.startsWith('/warehouse'))) ||
+            (storedRoleId == '2' && (pathname.startsWith('/admin') || pathname.startsWith('/warehouse'))) ||
+            (storedRoleId == '3' && (pathname.startsWith('/admin') || pathname.startsWith('/station')))
+          ) {
+            toast.error('Unauthorized access.');
+            navigate('/'); // Redirect to login page if route is not allowed for the role
+          }
         } else {
           navigate("/");
         }
@@ -71,7 +81,7 @@ const Layout = ({ children }) => {
         navigate("/");
       }
     }
-  }, [navigate]);
+  }, [navigate,location]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -156,7 +166,7 @@ const Layout = ({ children }) => {
     >
       <Toaster />
       <aside
-        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'}  border border-t-0 border-gray-300 ${
+        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "
         }`}
       >
@@ -230,7 +240,7 @@ const Layout = ({ children }) => {
             <div className="flex items-center">
               <button
                 onClick={toggleTheme}
-                className="relative w-14 mr-4 h-6 rounded-full p-1 transition-all duration-500 ease-in-out focus:outline-none focus:ring-2 dark:focus:ring-white focus:ring-black bg-gray-300 dark:bg-gray-600 flex items-center justify-center"
+                className="relative w-14 mr-4 h-6 rounded-full p-1 transition-all duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-300 dark:bg-gray-600 flex items-center justify-center"
                 aria-label="Toggle theme"
               >
                 <span
