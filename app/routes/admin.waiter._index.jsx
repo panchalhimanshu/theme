@@ -24,7 +24,7 @@ export default function Waiter() {
             <input type="text" placeholder="Enter Role" className="p-2 border border-border rounded w-full" />
           </div>
         </div>
-        <button className="bg-black text-white p-2 rounded dark:bg-white dark:text-black">Search</button>
+        <button className="bg-black block mx-auto text-white p-2 px-9 rounded-full dark:bg-white dark:text-black">Search</button>
 
         <h3 className="text-xl font-semibold mt-8 mb-4">Employee List</h3>
         <div className="flex justify-between mb-4">

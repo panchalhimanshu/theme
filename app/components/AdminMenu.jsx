@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@remix-run/react';
-import { LayoutDashboard, User, Settings, ChevronDown, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, User, Settings,Circle, ChevronDown, ChevronRight } from 'lucide-react';
 
 const AdminMenu = ({
     isActive,
@@ -32,8 +32,8 @@ const AdminMenu = ({
                     onMouseLeave={handleMenuLeave}
                 >
                     <LayoutDashboard className="w-5 h-5" />
-                    {isSidebarOpen && <span>Admin Dashboard</span>}
-                    {hoveredMenu === 'dashboard' && !isSidebarOpen && <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md ">Admin Dashboard</span>}
+                    {isSidebarOpen && <span> Dashboard</span>}
+                    {hoveredMenu === 'dashboard' && !isSidebarOpen && <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md "> Dashboard</span>}
                 </Link>
             </li>
 
@@ -67,7 +67,7 @@ const AdminMenu = ({
                                 to="/admin/waiter"
                                 className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <span>Waiter Management</span>
+                              <Circle className="w-3 h-3"/>  <span>  Waiter Management</span>
                             </Link>
                         </li>
                         <li className="my-2">
@@ -75,7 +75,7 @@ const AdminMenu = ({
                                 to="/admin/dummy-text"
                                 className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dummy-text') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <span>Dummy Text</span>
+                               <Circle className="w-3 h-3"/> <span>Dummy Text</span>
                             </Link>
                         </li>
                     </ul>
