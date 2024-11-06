@@ -11,10 +11,18 @@ export default function Waiter() {
   const [status, setStatus] = useState('');
   const [role, setRole] = useState('');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+
+  const ROLES = {
+    OUTLET_MANAGER: 2,
+    WAITER: 3,
+    KITCHEN_MANAGER: 4,
+    INVENTORY_MANAGER: 5
+  };
 
   const fetchEmployees = async () => {
     setLoading(true);
@@ -26,7 +34,7 @@ export default function Waiter() {
         JSON.stringify({
           name,
           status,
-          role:3,
+          role,
           pagination: { itemPerPage: pageSize, currentPage: page },
         }),
         'Auth'
@@ -107,16 +115,21 @@ export default function Waiter() {
             />
           </div>
           {/* Role */}
-          {/* <div>
+          <div>
             <label className="block mb-1">Role</label>
-            <input
-              type="text"
-              placeholder="Enter Role"
+            <select
               className="p-2 border border-border rounded w-full"
               value={role}
               onChange={(e) => setRole(e.target.value)}
-            />
-          </div> */}
+            >
+              <option value="">Select Role</option>
+              {Object.keys(ROLES).map((roleKey) => (
+                <option key={ROLES[roleKey]} value={ROLES[roleKey]}>
+                  {roleKey.replace('_', ' ').toUpperCase()}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         
         <button
@@ -129,9 +142,11 @@ export default function Waiter() {
 
         {error && <p className="text-red-500 mt-4">{error}</p>}
 
-        <h3 className="text-xl font-semibold mt-8 mb-4">Waiter List</h3>
         <div className="flex justify-between mb-4">
-          
+        <h3 className="text-xl font-semibold ">Employee List</h3>
+          <button className="bg-black text-white p-2 rounded dark:bg-white dark:text-black">
+            <Link to="/admin/employee/employeeadd"> + Add </Link>
+          </button>
         </div>
 
         <table className="min-w-full bg-card">
@@ -164,12 +179,13 @@ export default function Waiter() {
                 </td>
                 <td className="p-2">{employee.profilestatus ? 'Active' : 'Inactive'}</td>
                 <td className="p-2">{new Date(employee.logintime).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
+
                 <td className="p-2">
   <Link 
     to={`/admin/employee/employeeview/${employee.uid}`} 
     className="text-black dark:text-white border border-black dark:border-white rounded-lg px-2 py-1 inline-flex items-center  hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition"
   >
-    <Eye className="inline h-4 w-5" />
+    <Eye className="inline  h-4 w-5" />
     <span>View</span>  {/* Using the Lucide Eye icon */}
   </Link>
 </td>

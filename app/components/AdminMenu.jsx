@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@remix-run/react';
-import { LayoutDashboard, User, Settings,FileCheck2, Circle, ChevronDown, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, User, Settings, FileCheck2, Circle, ChevronDown, ChevronRight } from 'lucide-react';
 
 const AdminMenu = ({
     isActive,
@@ -15,7 +15,7 @@ const AdminMenu = ({
     const isManageUsersOpen = isMenuOpen('manageUsers') || isUserRouteActive;
     const isManageSettingsOpen = isMenuOpen('manageSettings');
     const isManageRolesOpen = isMenuOpen('manageRoles');
-    const isStaffManagementRouteActive = isActive('/admin/waiter') || isActive('/admin/dummy-text');
+    const isStaffManagementRouteActive = isActive('/admin/employee') || isActive('/admin/waiter');
     const isStaffManagementOpen = isMenuOpen('staffManagement') || isStaffManagementRouteActive;
 
     // Updated Inventory Management States
@@ -24,7 +24,7 @@ const AdminMenu = ({
 
     return (
         <>
-            {/* Dashboard Menu Item */}
+            {/* Dashboard Menu Item */} 
             <li className="px-4 py-2">
                 <Link
                     to="/admin/dashboard"
@@ -46,7 +46,8 @@ const AdminMenu = ({
                     onMouseEnter={() => handleMenuHover('staffManagement')}
                     onMouseLeave={handleMenuLeave}
                 >
-                    <User className="w-5 h-5" />
+                     <Link
+                                to="/admin/employee"><User className="w-5 h-5" /></Link>
                     {isSidebarOpen && (
                         <>
                             <span>Staff Management</span>
@@ -63,18 +64,18 @@ const AdminMenu = ({
                     <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
                         <li className="my-2">
                             <Link
-                                to="/admin/waiter"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                to="/admin/employee"
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/employee') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <Circle className="w-3 h-3" /> <span>Waiter Management</span>
+                                <Circle className="w-3 h-3" /> <span>Employee Management</span>
                             </Link>
                         </li>
                         <li className="my-2">
                             <Link
-                                to="/admin/dummy-text"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dummy-text') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                to="/admin/waiter"
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <Circle className="w-3 h-3" /> <span>Dummy Text</span>
+                                <Circle className="w-3 h-3" /> <span>Waiter-Management</span>
                             </Link>
                         </li>
                     </ul>
@@ -89,7 +90,8 @@ const AdminMenu = ({
                     onMouseEnter={() => handleMenuHover('inventoryManagement')}
                     onMouseLeave={handleMenuLeave}
                 >
-                    <FileCheck2 className="w-5 h-5" />
+                    <Link
+                                to="/admin/inventorymanagment/product"><FileCheck2 className="w-5 h-5" /></Link>
                     {isSidebarOpen && (
                         <>
                             <span>Inventory Management</span>
@@ -172,7 +174,7 @@ const AdminMenu = ({
                                 to="/admin/user1"
                                 className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <Circle className="w-3 h-3" /> <span>User 1</span>
+                               <Circle className="w-3 h-3" /> <span>User1</span>
                             </Link>
                         </li>
                         <li className="my-2">
@@ -180,14 +182,14 @@ const AdminMenu = ({
                                 to="/admin/user2"
                                 className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
-                                <Circle className="w-3 h-3" /> <span>User 2</span>
+                               <Circle className="w-3 h-3" /> <span>User2</span>
                             </Link>
                         </li>
                     </ul>
                 )}
             </li>
 
-            {/* Manage Settings Menu Item */}
+            {/* Settings Menu Item */}
             <li className="px-4 py-2 relative">
                 <div
                     className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
@@ -208,7 +210,22 @@ const AdminMenu = ({
                 </div>
                 {isSidebarOpen && isManageSettingsOpen && (
                     <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
-                        {/* Add settings links here */}
+                        <li className="my-2">
+                            <Link
+                                to="/admin/manage-account"
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/manage-account') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                            >
+                               <Circle className="w-3 h-3" /> <span>Manage Account</span>
+                            </Link>
+                        </li>
+                        <li className="my-2">
+                            <Link
+                                to="/admin/logs"
+                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/logs') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                            >
+                               <Circle className="w-3 h-3" /> <span>Logs</span>
+                            </Link>
+                        </li>
                     </ul>
                 )}
             </li>

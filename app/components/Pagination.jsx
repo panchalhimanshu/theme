@@ -49,7 +49,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => page !== '...' && onPageChange(page)}
           disabled={page === currentPage || page === '...'}
           className={`px-4 py-2 rounded ${page === currentPage
-              ? 'bg-[#846cf9] dark:bg-[#846cf9] text-white dark:text-white'
+              ? 'bg-black dark:bg-white text-white dark:text-black'
               : 'bg-gray-300 dark:bg-gray-700 text-black dark:text-white'
             } ${page === '...' ? 'cursor-default' : 'cursor-pointer'}`}
         >

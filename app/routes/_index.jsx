@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "@remix-run/react";
 import { toast, Toaster } from 'react-hot-toast'; 
-import loginpage from '../../public/loginpage.png'
+import loginpage from '../../public/loginpage.png';
+import CallFor from "../utilities/CallFor";
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,28 +22,35 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/loginuser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+      // const response = await fetch('http://localhost:5000/api/auth/loginuser', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     email: email,
+      //     password: password,
+      //   }),
+      // });
 
-      if (response.ok) {
-        const data = await response.json();
-        sessionStorage.setItem('token', JSON.stringify(data.token));
-        sessionStorage.setItem('remixdata', btoa(JSON.stringify(data)));
 
-        const roleId = data.user.roleId;
-        if (roleId === '1') {
+     const response = await CallFor('auth/login','post', JSON.stringify({
+      email: email,
+      password: password,
+    }),'withoutAuth')
+
+      if (response.data.success) {
+        sessionStorage.setItem('token', JSON.stringify(response.data.data.token));
+        sessionStorage.setItem('remixdata', btoa(JSON.stringify(response.data.data)));
+
+        const roleId = response.data.data.roleid;
+
+        console.log(roleId,"roleod")
+        if (roleId == '2') {
           navigate('/admin/dashboard');
-        } else if (roleId === '2') {
+        } else if (roleId == '1') {
           navigate('/station/dashboard');
-        } else if (roleId === '3') {
+        } else if (roleId == '3') {
           navigate('/warehouse/dashboard');
         } else {
           console.log('Unknown role, unable to redirect.');

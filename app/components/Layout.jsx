@@ -15,6 +15,7 @@ import AdminMenu from "./AdminMenu";
 import StationMenu from "./StationMenu";
 import WarehouseMenu from "./WarehouseMenu";
 import { toast, Toaster } from "react-hot-toast";
+import CallFor from "../utilities/CallFor";
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const Layout = ({ children }) => {
   const [roleId, setRoleId] = useState(null);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [openMenus, setOpenMenus] = useState([]);
+  const [remixdata, setremixdata] = useState([]);
+
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
       const storedTheme = localStorage.getItem("theme");
@@ -60,15 +63,16 @@ const Layout = ({ children }) => {
       if (remixdatas) {
         const storedRoleIds = JSON.parse(atob(remixdatas));
         const pathname = location.pathname;
+        setremixdata(storedRoleIds)
         console.log(storedRoleIds, "dataremix");
-        const storedRoleId = storedRoleIds?.user.roleId;
-        // console.log(pathname,"pathname");//
+        const storedRoleId = storedRoleIds?.roleid;
+        // console.log(storedRoleId,"pathname");
 
         if (storedRoleId) {
           setRoleId(Number(storedRoleId));
           if (
-            (storedRoleId == '1' && (pathname.startsWith('/station') || pathname.startsWith('/warehouse'))) ||
-            (storedRoleId == '2' && (pathname.startsWith('/admin') || pathname.startsWith('/warehouse'))) ||
+            (storedRoleId == '2' && (pathname.startsWith('/station') || pathname.startsWith('/warehouse'))) ||
+            (storedRoleId == '1' && (pathname.startsWith('/admin') || pathname.startsWith('/warehouse'))) ||
             (storedRoleId == '3' && (pathname.startsWith('/admin') || pathname.startsWith('/station')))
           ) {
             toast.error('Unauthorized access.');
@@ -99,13 +103,30 @@ const Layout = ({ children }) => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (typeof window !== "undefined") {
+      // Remove session data
       sessionStorage.removeItem("remixdata");
-      sessionStorage.removeItem("roleId");
+      sessionStorage.removeItem("token");
     }
-    navigate("/");
+  
+    // Send POST request to /auth/logout
+    try {
+      const response = await CallFor('auth/logout','post', {ulid: remixdata.ulid},'withoutAuth');
+  
+      if (response.data.success) {
+        // If the response is successful, redirect to the homepage or login page
+        navigate("/");
+      } else {
+        // Handle error (e.g., show toast notification)
+        toast.error("Logout failed. Please try again.");
+      }
+    } catch (error) {
+      // Handle network or other errors
+      toast.error("An error occurred. Please try again.");
+    }
   };
+  
 
   const isActive = (path) => location.pathname === path;
 
@@ -166,16 +187,16 @@ const Layout = ({ children }) => {
     >
       <Toaster />
       <aside
-        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'} font-semibold border border-t-0 border-gray-300 ${
+        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'}  border border-t-0 border-gray-300 ${
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "
         }`}
       >
-        <div className="p-4 pt-5 dark:text-white text-black text-center text-2xl font-bold border border-r-0 border-gray-300">
+        <div className="p-4 pt-5 dark:text-white text-black text-center text-2xl  border border-r-0 border-gray-300">
           {/* {isSidebarOpen ? 'ResPos' : 'RP'} */}
           <h1
             className={` ${
               isSidebarOpen ? "text-[40px]" : "text-[25px] "
-            } font-bold `}
+            }  `}
           >
             {isSidebarOpen ? (
               <>
@@ -190,9 +211,9 @@ const Layout = ({ children }) => {
             )}
           </h1>
         </div>
-        <nav className="mt-10">
+        <nav className="mt-5">
           <ul>
-            {roleId == 1 && (
+            {roleId == 2 && (
               <AdminMenu
                 isActive={isActive}
                 isSidebarOpen={isSidebarOpen}
@@ -203,7 +224,7 @@ const Layout = ({ children }) => {
                 handleMenuLeave={handleMenuLeave}
               />
             )}
-            {roleId == 2 && (
+            {roleId == 1 && (
               <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />
             )}
             {roleId == 3 && (
@@ -324,7 +345,7 @@ const Layout = ({ children }) => {
                   onClick={toggleAvatarDropdown}
                   className="focus:outline-none rounded-full border-2 dark:border-white border-black bg-red-500 text-white w-10 h-10 flex items-center justify-center"
                 >
-                  H
+                  {remixdata && remixdata.ulid} 
                 </button>
                 {isAvatarDropdownOpen && (
                   <div
@@ -357,7 +378,7 @@ const Layout = ({ children }) => {
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-5 right-5 dark:bg-white dark:text-black bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
+          className="fixed bottom-20 right-5 dark:bg-white dark:text-black bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
         >
           <ArrowUp />
         </button>
