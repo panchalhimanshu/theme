@@ -297,7 +297,7 @@ const Layout = ({ children }) => {
                 )}
               </button>
               <button
-                className={`focus:outline-none rounded-full dark:hover:bg-white  dark:hover:text-black hover:bg-black  hover:text-white p-1 mr-4 ${
+                className={`focus:outline-none rounded-full dark:hover:bg-white  dark:hover:text-black hover:bg-black  hover:text-white border dark:border-white border-black p-1 mr-4 ${
                   isNotificationDropdownOpen
                     ? "bg-black text-white dark:bg-white  dark:text-black"
                     : ""
@@ -312,7 +312,7 @@ const Layout = ({ children }) => {
                     <span className="font-semibold">Notifications</span>
                     <button
                       onClick={toggleNotificationDropdown}
-                      className="text-gray-500 hover:text-gray-800"
+                      className="text-gray-500 hover:text-gray-800 "
                     >
                       ✕
                     </button>
