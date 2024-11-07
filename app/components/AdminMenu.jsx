@@ -15,11 +15,11 @@ const AdminMenu = ({
     const isManageUsersOpen = isMenuOpen('manageUsers') || isUserRouteActive;
     const isManageSettingsOpen = isMenuOpen('manageSettings');
     const isManageRolesOpen = isMenuOpen('manageRoles');
-    const isStaffManagementRouteActive = isActive('/admin/employee') || isActive('/admin/waiter');
+    const isStaffManagementRouteActive = isActive('/admin/employee') || isActive('/admin/waiter') ;
     const isStaffManagementOpen = isMenuOpen('staffManagement') || isStaffManagementRouteActive;
 
     // Updated Inventory Management States
-    const isInventoryRouteActive = isActive('/admin/inventorymanagment/product') || isActive('/admin/inventorymanagment/recipe') || isActive('/admin/inventorymanagment/physical-stock') || isActive('/admin/inventorymanagment/purchase-request') || isActive('/admin/inventorymanagment/wastage-details');
+    const isInventoryRouteActive = isActive('/admin/inventorymanagment/product') || isActive('/admin/inventorymanagment/recipe') || isActive('/admin/inventorymanagment/physical-stock') || isActive('/admin/inventorymanagment/purchase-request') || isActive('/admin/inventorymanagment/wastage-details') || isActive('/admin/inventorymanagment/product/productadd')   ;
     const isInventoryManagementOpen = isMenuOpen('inventoryManagement') || isInventoryRouteActive;
 
     return (
@@ -28,7 +28,7 @@ const AdminMenu = ({
             <li className="px-4 py-2">
                 <Link
                     to="/admin/dashboard"
-                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white  dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onMouseEnter={() => handleMenuHover('dashboard')}
                     onMouseLeave={handleMenuLeave}
                 >
@@ -92,7 +92,7 @@ const AdminMenu = ({
                 >
                     <Link
                                 to="/admin/inventorymanagment/product"><FileCheck2 className="w-5 h-5" /></Link>
-                    {isSidebarOpen && (
+                    {isSidebarOpen && ( 
                         <>
                             <span>Inventory Management</span>
                             {isInventoryManagementOpen ? <ChevronDown className="w-4 h-4 ml-auto" /> : <ChevronRight className="w-4 h-4 ml-auto" />}

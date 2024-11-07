@@ -16,6 +16,7 @@ import StationMenu from "./StationMenu";
 import WarehouseMenu from "./WarehouseMenu";
 import { toast, Toaster } from "react-hot-toast";
 import CallFor from "../utilities/CallFor";
+import respos from '../../public/respos.png';
 
 const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -215,7 +216,11 @@ const Layout = ({ children }) => {
             {isSidebarOpen ? (
               <>
                 {" "}
-                Res<span className="text-gray-500">POS</span>
+                {/* Res<span className="text-gray-500">POS</span> */}
+                <img
+            src={respos}
+            className="ml-10 -mb-1 "
+          />
               </>
             ) : (
               <>
@@ -311,7 +316,7 @@ const Layout = ({ children }) => {
                 )}
               </button>
               <button
-                className={`focus:outline-none border-2 dark:border-white border-black
+                className={`focus:outline-none border dark:border-white border-black
   rounded-full dark:hover:bg-white  dark:hover:text-black hover:bg-black  hover:text-white p-1 mr-4 ${
     isNotificationDropdownOpen
       ? "bg-black text-white dark:bg-white  dark:text-black"
@@ -358,7 +363,7 @@ const Layout = ({ children }) => {
               <div className="relative">
                 <button
                   onClick={toggleAvatarDropdown}
-                  className="focus:outline-none rounded-full border-2 dark:border-white border-black bg-red-500 text-white w-10 h-10 flex items-center justify-center"
+                  className="focus:outline-none rounded-full border dark:border-white border-black bg-red-500 text-white w-10 h-10 flex items-center justify-center"
                 >
                   {remixdata.fullname &&
                     remixdata.fullname.charAt(0).toUpperCase()}
@@ -394,7 +399,7 @@ const Layout = ({ children }) => {
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-20 right-5 dark:bg-white dark:text-black bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
+          className="fixed bottom-12 right-7 dark:bg-white dark:text-black bg-black text-white p-2 rounded-full hover:bg-black transition-all animate-bounceUpDown"
         >
           <ArrowUp />
         </button>

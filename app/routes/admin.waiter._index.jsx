@@ -90,7 +90,7 @@ export default function Waiter() {
             <input
               type="text"
               placeholder="Employee Name"
-              className="p-2 border border-border rounded w-full"
+              className="p-2 border border-border rounded w-full dark:bg-white dark:text-black"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -101,7 +101,7 @@ export default function Waiter() {
             <input
               type="text"
               placeholder="Enter Status"
-              className="p-2 border border-border rounded w-full"
+              className="p-2 border border-border rounded w-full dark:bg-white dark:text-black"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             />
@@ -167,7 +167,7 @@ export default function Waiter() {
                 <td className="p-2">
   <Link 
     to={`/admin/employee/employeeview/${employee.uid}`} 
-    className="text-black dark:text-white border border-black dark:border-white rounded-lg px-2 py-1 inline-flex items-center  hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition"
+    className="text-black dark:text-white border border-black dark:border-white rounded-full px-2 py-1 inline-flex items-center  hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition"
   >
     <Eye className="inline h-4 w-5" />
     <span>View</span>  {/* Using the Lucide Eye icon */}

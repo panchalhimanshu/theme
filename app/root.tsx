@@ -6,8 +6,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-import { ErrorBoundaryComponent } from "@remix-run/react";
 import "./tailwind.css";
+import { Link } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -40,9 +40,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-import { Link, ErrorBoundaryComponent } from "@remix-run/react";
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+export const ErrorBoundary = () => {
   return (
     <div>
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
