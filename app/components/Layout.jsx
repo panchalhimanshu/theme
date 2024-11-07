@@ -63,7 +63,7 @@ const Layout = ({ children }) => {
       if (remixdatas) {
         const storedRoleIds = JSON.parse(atob(remixdatas));
         const pathname = location.pathname;
-        setremixdata(storedRoleIds)
+        setremixdata(storedRoleIds);
         console.log(storedRoleIds, "dataremix");
         const storedRoleId = storedRoleIds?.roleid;
         // console.log(storedRoleId,"pathname");
@@ -71,12 +71,18 @@ const Layout = ({ children }) => {
         if (storedRoleId) {
           setRoleId(Number(storedRoleId));
           if (
-            (storedRoleId == '2' && (pathname.startsWith('/station') || pathname.startsWith('/warehouse'))) ||
-            (storedRoleId == '1' && (pathname.startsWith('/admin') || pathname.startsWith('/warehouse'))) ||
-            (storedRoleId == '3' && (pathname.startsWith('/admin') || pathname.startsWith('/station')))
+            (storedRoleId == "2" &&
+              (pathname.startsWith("/station") ||
+                pathname.startsWith("/warehouse"))) ||
+            (storedRoleId == "1" &&
+              (pathname.startsWith("/admin") ||
+                pathname.startsWith("/warehouse"))) ||
+            (storedRoleId == "3" &&
+              (pathname.startsWith("/admin") ||
+                pathname.startsWith("/station")))
           ) {
-            toast.error('Unauthorized access.');
-            navigate('/'); // Redirect to login page if route is not allowed for the role
+            toast.error("Unauthorized access.");
+            navigate("/"); // Redirect to login page if route is not allowed for the role
           }
         } else {
           navigate("/");
@@ -85,7 +91,7 @@ const Layout = ({ children }) => {
         navigate("/");
       }
     }
-  }, [navigate,location]);
+  }, [navigate, location]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -109,11 +115,16 @@ const Layout = ({ children }) => {
       sessionStorage.removeItem("remixdata");
       sessionStorage.removeItem("token");
     }
-  
+
     // Send POST request to /auth/logout
     try {
-      const response = await CallFor('auth/logout','post', {ulid: remixdata.ulid},'withoutAuth');
-  
+      const response = await CallFor(
+        "auth/logout",
+        "post",
+        { ulid: remixdata.ulid },
+        "withoutAuth"
+      );
+
       if (response.data.success) {
         // If the response is successful, redirect to the homepage or login page
         navigate("/");
@@ -126,7 +137,6 @@ const Layout = ({ children }) => {
       toast.error("An error occurred. Please try again.");
     }
   };
-  
 
   const isActive = (path) => location.pathname === path;
 
@@ -191,11 +201,15 @@ const Layout = ({ children }) => {
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "
         }`}
       >
-        <div className="p-4 pt-5 dark:text-white text-black text-center text-2xl  border border-r-0 border-gray-300">
+        <div
+          className={`py-4 pt-5 fixed top-0 left-0 z-10 bg-white dark:bg-black dark:text-white text-black text-center text-2xl border border-r-0 border-gray-300 ${
+            isSidebarOpen ? "pr-3" : "pr-1"
+          }`}
+        >
           {/* {isSidebarOpen ? 'ResPos' : 'RP'} */}
           <h1
             className={` ${
-              isSidebarOpen ? "text-[40px]" : "text-[25px] "
+              isSidebarOpen ? "text-[40px] w-60" : "text-[25px] w-16"
             }  `}
           >
             {isSidebarOpen ? (
@@ -211,7 +225,7 @@ const Layout = ({ children }) => {
             )}
           </h1>
         </div>
-        <nav className="mt-5">
+        <nav className="mt-24">
           <ul>
             {roleId == 2 && (
               <AdminMenu
@@ -297,11 +311,12 @@ const Layout = ({ children }) => {
                 )}
               </button>
               <button
-                className={`focus:outline-none rounded-full dark:hover:bg-white  dark:hover:text-black hover:bg-black  hover:text-white border dark:border-white border-black p-1 mr-4 ${
-                  isNotificationDropdownOpen
-                    ? "bg-black text-white dark:bg-white  dark:text-black"
-                    : ""
-                }`}
+                className={`focus:outline-none border-2 dark:border-white border-black
+  rounded-full dark:hover:bg-white  dark:hover:text-black hover:bg-black  hover:text-white p-1 mr-4 ${
+    isNotificationDropdownOpen
+      ? "bg-black text-white dark:bg-white  dark:text-black"
+      : ""
+  }`}
                 onClick={toggleNotificationDropdown}
               >
                 <Bell className="w-6 h-6" />
@@ -312,7 +327,7 @@ const Layout = ({ children }) => {
                     <span className="font-semibold">Notifications</span>
                     <button
                       onClick={toggleNotificationDropdown}
-                      className="text-gray-500 hover:text-gray-800 "
+                      className="text-gray-500 hover:text-gray-800"
                     >
                       ✕
                     </button>
@@ -345,7 +360,8 @@ const Layout = ({ children }) => {
                   onClick={toggleAvatarDropdown}
                   className="focus:outline-none rounded-full border-2 dark:border-white border-black bg-red-500 text-white w-10 h-10 flex items-center justify-center"
                 >
-                  {remixdata && remixdata.ulid} 
+                  {remixdata.fullname &&
+                    remixdata.fullname.charAt(0).toUpperCase()}
                 </button>
                 {isAvatarDropdownOpen && (
                   <div
