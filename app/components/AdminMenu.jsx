@@ -28,7 +28,7 @@ const AdminMenu = ({
             <li className="px-4 py-2">
                 <Link
                     to="/admin/dashboard"
-                    className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white  dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 text-sm  rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white  dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onMouseEnter={() => handleMenuHover('dashboard')}
                     onMouseLeave={handleMenuLeave}
                 >
@@ -41,7 +41,7 @@ const AdminMenu = ({
             {/* Staff Management Menu Item */}
             <li className="px-4 py-2 relative">
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isStaffManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isStaffManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('staffManagement')}
                     onMouseEnter={() => handleMenuHover('staffManagement')}
                     onMouseLeave={handleMenuLeave}
@@ -65,7 +65,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/employee"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/employee') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/employee') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <Circle className="w-3 h-3" /> <span>Employee Management</span>
                             </Link>
@@ -73,7 +73,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/waiter"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                 <Circle className="w-3 h-3" /> <span>Waiter-Management</span>
                             </Link>
@@ -85,7 +85,7 @@ const AdminMenu = ({
             {/* Inventory Management Menu Item */}
             <li className="px-4 py-2 relative">
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isInventoryManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isInventoryManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('inventoryManagement')}
                     onMouseEnter={() => handleMenuHover('inventoryManagement')}
                     onMouseLeave={handleMenuLeave}
@@ -107,7 +107,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/inventorymanagment/product"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/product') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/product') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" />  <span>Product</span>
                             </Link>
@@ -115,7 +115,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/inventorymanagment/recipe"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/recipe') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/recipe') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" />  <span>Recipe</span>
                             </Link>
@@ -123,7 +123,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/inventorymanagment/physical-stock"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/physical-stock') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/physical-stock') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" />  <span>Physical Stock</span>
                             </Link>
@@ -131,7 +131,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/inventorymanagment/purchase-request"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/purchase-request') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/purchase-request') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" />  <span>Purchase Request</span>
                             </Link>
@@ -139,7 +139,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/inventorymanagment/wastage-details"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/wastage-details') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/wastage-details') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" />  <span>Wastage Details</span>
                             </Link>
@@ -151,7 +151,7 @@ const AdminMenu = ({
             {/* Manage Users Menu Item */}
             <li className="px-4 py-2 relative">
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageUsersOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isManageUsersOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('manageUsers')}
                     onMouseEnter={() => handleMenuHover('manageUsers')}
                     onMouseLeave={handleMenuLeave}
@@ -172,7 +172,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/user1"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" /> <span>User1</span>
                             </Link>
@@ -180,7 +180,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/user2"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" /> <span>User2</span>
                             </Link>
@@ -192,7 +192,7 @@ const AdminMenu = ({
             {/* Settings Menu Item */}
             <li className="px-4 py-2 relative">
                 <div
-                    className={`p-2 rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                     onClick={() => toggleMenu('manageSettings')}
                     onMouseEnter={() => handleMenuHover('manageSettings')}
                     onMouseLeave={handleMenuLeave}
@@ -213,7 +213,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/manage-account"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/manage-account') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/manage-account') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" /> <span>Manage Account</span>
                             </Link>
@@ -221,7 +221,7 @@ const AdminMenu = ({
                         <li className="my-2">
                             <Link
                                 to="/admin/logs"
-                                className={`p-2 rounded-md flex items-center gap-2 ${isActive('/admin/logs') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
+                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/logs') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
                             >
                                <Circle className="w-3 h-3" /> <span>Logs</span>
                             </Link>

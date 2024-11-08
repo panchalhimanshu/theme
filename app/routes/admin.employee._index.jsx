@@ -24,6 +24,13 @@ export default function Waiter() {
     Inventory_Manager: 5
   };
 
+  const Role = {
+    2: "Outlet Manager",
+    3: "Waiter",
+    4: "Kitchen Manager",
+    5: "Inventory Manager"
+  };
+
   const fetchEmployees = async () => {
     setLoading(true);
     setError(null);
@@ -164,9 +171,9 @@ export default function Waiter() {
           <tbody>
             {employees.map((employee, index) => (
               <tr className="border-b border-border" key={employee.uid}>
-                <td className="p-2">#{index + 1}</td>
+                 <td className="p-2">#{employee.uid}</td>
                 <td className="p-2">{employee.fullname}</td>
-                <td className="p-2">{employee.roleid}</td>
+                <td className="p-2  ">  {Role[employee.roleid] || 'NA'} </td>
                 <td className="p-2">
                   <Switch
                     onChange={() => handleStatusToggle(employee.uid, employee.profilestatus)}

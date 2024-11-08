@@ -35,7 +35,7 @@ export default function Component() {
           </div>
 
           <div className="">
-          <div className="bg-card px-2 pb-2 rounded-lg shadow-md">
+          <div className="bg-card bg-gray-200 px-2 pb-2 rounded-lg shadow-md">
           <h2 className="text-lg font-bold mb-2">Full Forms</h2>
           <ul className="list-disc pl-5">
             <li className="text-muted-foreground">Uom - Unit of Measurement</li>

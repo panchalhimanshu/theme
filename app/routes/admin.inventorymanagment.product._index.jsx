@@ -1,62 +1,26 @@
-import { useState } from "react"
-import { Search } from "lucide-react"
+import { useState } from "react";
+import { Search } from "lucide-react";
 import Layout from '../components/Layout';
 import { Link } from "@remix-run/react";
 
 export default function Component() {
-  const [activeTab, setActiveTab] = useState("raw-material") // Set default tab to "raw-material"
-  const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState("raw-material");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const rawMaterials = [
-    {
-      id: "#0001",
-      name: "Wheat",
-      category: "Grains",
-      course: "Raw",
-      price: 50,
-    },
-    {
-      id: "#0002",
-      name: "Sugar",
-      category: "Sweetener",
-      course: "Raw",
-      price: 80,
-    },
-  ]
+    { id: "#0001", name: "Wheat", category: "Grains", course: "Raw", price: 50 },
+    { id: "#0002", name: "Sugar", category: "Sweetener", course: "Raw", price: 80 },
+  ];
 
   const finishedGoods = [
-    {
-      id: "#0003",
-      name: "Raju Masala",
-      category: "Indian",
-      course: "Starter",
-      price: 100,
-    },
-    {
-      id: "#0004",
-      name: "Peppy Paneer",
-      category: "Chinese",
-      course: "Main Course",
-      price: 125,
-    },
-  ]
+    { id: "#0003", name: "Raju Masala", category: "Indian", course: "Starter", price: 100 },
+    { id: "#0004", name: "Peppy Paneer", category: "Chinese", course: "Main Course", price: 125 },
+  ];
 
   const semiFinishedGoods = [
-    {
-      id: "#0005",
-      name: "Tomato Paste",
-      category: "Condiment",
-      course: "Semi-Finished",
-      price: 70,
-    },
-    {
-      id: "#0006",
-      name: "Cheese",
-      category: "Dairy",
-      course: "Semi-Finished",
-      price: 110,
-    },
-  ]
+    { id: "#0005", name: "Tomato Paste", category: "Condiment", course: "Semi-Finished", price: 70 },
+    { id: "#0006", name: "Cheese", category: "Dairy", course: "Semi-Finished", price: 110 },
+  ];
 
   const getTableData = () => {
     switch (activeTab) {
@@ -69,7 +33,33 @@ export default function Component() {
       default:
         return [];
     }
-  }
+  };
+
+  const getAddLink = () => {
+    switch (activeTab) {
+      case "raw-material":
+        return "/admin/inventorymanagment/product/rawmaterialadd";
+      case "finished-goods":
+        return "/admin/inventorymanagment/product/finishedgoodsadd";
+      case "semi-finished-goods":
+        return "/admin/inventorymanagment/product/semifinishedgoodsadd";
+      default:
+        return "#";
+    }
+  };
+
+  const getViewLink = () => {
+    switch (activeTab) {
+      case "raw-material":
+        return "/admin/inventorymanagment/product/rawmaterialview";
+      case "finished-goods":
+        return "/admin/inventorymanagment/product/finishedgoodsview";
+      case "semi-finished-goods":
+        return "/admin/inventorymanagment/product/semifinishedgoodsview";
+      default:
+        return "#";
+    }
+  };
 
   return (
     <Layout>
@@ -89,19 +79,36 @@ export default function Component() {
         </div>
 
         <div className="flex space-x-1 border-b dark:border-gray-700 mb-3">
-          {["raw-material", "finished-goods", "semi-finished-goods"].map((tab) => (
-            <button
-              key={tab}
-              className={`px-4 py-2 font-medium text-sm focus:outline-none ${
-                activeTab === tab
-                  ? "border-b-2 border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
-                  : "text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:dark:text-gray-100"
-              }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-            </button>
-          ))}
+          <button
+            className={`px-4 py-2 font-medium text-sm focus:outline-none ${
+              activeTab === "raw-material"
+                ? "border-b-2 border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:dark:text-gray-100"
+            }`}
+            onClick={() => setActiveTab("raw-material")}
+          >
+            Raw Material
+          </button>
+          <button
+            className={`px-4 py-2 font-medium text-sm focus:outline-none ${
+              activeTab === "finished-goods"
+                ? "border-b-2 border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:dark:text-gray-100"
+            }`}
+            onClick={() => setActiveTab("finished-goods")}
+          >
+            Finished Goods
+          </button>
+          <button
+            className={`px-4 py-2 font-medium text-sm focus:outline-none ${
+              activeTab === "semi-finished-goods"
+                ? "border-b-2 border-blue-500 text-blue-600 dark:border-blue-400 dark:text-blue-300"
+                : "text-gray-500 hover:text-gray-700 dark:text-gray-300 hover:dark:text-gray-100"
+            }`}
+            onClick={() => setActiveTab("semi-finished-goods")}
+          >
+            Semi-Finished Goods
+          </button>
         </div>
 
         <div className="border rounded-lg overflow-hidden dark:bg-gray-900">
@@ -125,10 +132,9 @@ export default function Component() {
                   <td className="p-2 text-sm">{product.course}</td>
                   <td className="p-2 text-sm">₹{product.price}</td>
                   <td className="p-2">
-                    <button className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-blue-600">
-                      
-                      <Link to="/admin/inventorymanagment/product/productview"> View </Link>
-                    </button>
+                    <Link to={getViewLink()} className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-blue-600">
+                      View
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -137,11 +143,11 @@ export default function Component() {
         </div>
 
         <div className="flex justify-end mt-5">
-          <button className="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:bg-white dark:text-black dark:hover:bg-gray-300">
-            + Add {activeTab.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-          </button>
+          <Link to={getAddLink()} className="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black dark:bg-white dark:text-black dark:hover:bg-gray-300">
+            + Add {activeTab === "raw-material" ? "Raw Material" : activeTab === "finished-goods" ? "Finished Goods" : "Semi-Finished Goods"}
+          </Link>
         </div>
       </div>
     </Layout>
-  )
+  );
 }

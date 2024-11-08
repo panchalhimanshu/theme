@@ -4,7 +4,7 @@ export default function Component() {
   return (
     <Layout>
       <div className="bg-white dark:bg-black dark:text-white p-6 bg-background rounded-lg">
-        <div className="grid grid-cols-1 md:grid-cols-3 pb-2 gap-4 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 pb-2 gap-24 text-sm">
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="">Item Name:</span>
@@ -35,7 +35,7 @@ export default function Component() {
           </div>
 
           <div className="">
-          <div className="bg-card px-2 pb-2 rounded-lg shadow-md">
+          <div className="bg-card bg-gray-200 px-2 pb-2 rounded-lg shadow-md">
           <h2 className="text-lg font-bold mb-2">Full Forms</h2>
           <ul className="list-disc pl-5">
             <li className="text-muted-foreground">Uom - Unit of Measurement</li>

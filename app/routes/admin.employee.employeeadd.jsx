@@ -127,7 +127,7 @@ export default function Settings() {
               First Name
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="text"
               id="firstName"
               placeholder="Enter First Name"
@@ -143,7 +143,7 @@ export default function Settings() {
               Last Name
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="text"
               id="lastName"
               placeholder="Enter Last Name"
@@ -159,7 +159,7 @@ export default function Settings() {
               Role
             </label>
             <select
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="mt-1 dark:bg-black bg-white dark:text-white text-black block w-full border border-border rounded-md p-2"
               id="role"
               value={formData.role}
               onChange={handleChange}
@@ -180,7 +180,7 @@ export default function Settings() {
               Email Id
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="email"
               id="email"
               placeholder="Enter Email Id"
@@ -196,7 +196,7 @@ export default function Settings() {
               Mobile No.
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="tel"
               id="mobile"
               placeholder="Enter Mobile No"
@@ -213,7 +213,7 @@ export default function Settings() {
               User Id
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="text"
               id="userId"
               placeholder="Enter User Id"
@@ -229,7 +229,7 @@ export default function Settings() {
               Password
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="password"
               id="password"
               placeholder="Enter your password"
@@ -245,7 +245,7 @@ export default function Settings() {
               Confirm Password
             </label>
             <input
-              className="mt-1 block w-full border border-border rounded-md p-2"
+              className="dark:bg-black bg-white dark:text-white text-black mt-1 block w-full border border-border rounded-md p-2"
               type="password"
               id="confirmPassword"
               placeholder="Confirm your password"

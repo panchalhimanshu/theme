@@ -139,7 +139,7 @@ export default function Waiter() {
             <tr className="border-b border-border">
               <th className="text-left p-2">Sr No</th>
               <th className="text-left p-2">Name</th>
-              <th className="text-left p-2">Role</th>
+              {/* <th className="text-left p-2">Role</th> */}
               <th className="text-left p-2">Account Active</th>
               <th className="text-left p-2">Status</th>
               <th className="text-left p-2">Last Login</th>
@@ -149,9 +149,9 @@ export default function Waiter() {
           <tbody>
             {employees.map((employee, index) => (
               <tr className="border-b border-border" key={employee.uid}>
-                <td className="p-2">#{index + 1}</td>
+                <td className="p-2">#{employee.uid}</td>
                 <td className="p-2">{employee.fullname}</td>
-                <td className="p-2">{employee.roleid}</td>
+                {/* <td className="p-2">{employee.roleid}</td> */}
                 <td className="p-2">
                 <Switch
   onChange={() => handleStatusToggle(employee.uid, employee.profilestatus)}
