@@ -10,6 +10,8 @@ import {
   ArrowRightFromLine,
   Bell,
   ArrowUp,
+  Menu,
+  ChevronLeft,
 } from "lucide-react";
 import AdminMenu from "./AdminMenu";
 import StationMenu from "./StationMenu";
@@ -217,10 +219,7 @@ const Layout = ({ children }) => {
               <>
                 {" "}
                 {/* Res<span className="text-gray-500">POS</span> */}
-                <img
-            src={respos}
-            className="ml-10 -mb-1 "
-          />
+                <img src={respos} className="ml-10 -mb-1 " />
               </>
             ) : (
               <>
@@ -271,9 +270,9 @@ const Layout = ({ children }) => {
                 onClick={toggleSidebar}
               >
                 {isSidebarOpen ? (
-                  <ArrowLeftToLine className="w-6 h-5" />
+                  <Menu className="w-6 h-6 transform transition-transform duration-300 rotate-0" />
                 ) : (
-                  <ArrowRightFromLine className="w-6 h-5" />
+                  <ChevronLeft className="w-6 h-6 transform transition-transform duration-300 rotate-0" />
                 )}
               </button>
             </div>
