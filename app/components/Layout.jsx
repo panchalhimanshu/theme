@@ -212,7 +212,7 @@ const Layout = ({ children }) => {
           {/* {isSidebarOpen ? 'ResPos' : 'RP'} */}
           <h1
             className={` ${
-              isSidebarOpen ? "text-[40px] w-60" : "text-[25px] w-16"
+              isSidebarOpen ? "text-[40px] w-[242px]" : "text-[25px] w-16"
             }  `}
           >
             {isSidebarOpen ? (

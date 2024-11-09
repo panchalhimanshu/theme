@@ -147,7 +147,6 @@ export default function Waiter() {
           {loading ? 'Search' : 'Search'}
         </button>
 
-        {error && <p className="text-red-500 mt-4">{error}</p>}
 
         <div className="flex justify-between mb-4">
           <h3 className="text-xl font-semibold ">Employee List</h3>
@@ -198,6 +197,8 @@ export default function Waiter() {
                 </td>
               </tr>
             ))}
+        {error && <p className="text-red-500 mt-4">{error}</p>}
+
           </tbody>
         </table>
       </div>

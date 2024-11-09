@@ -4,6 +4,7 @@ import { useNavigate } from "@remix-run/react";
 import { toast, Toaster } from 'react-hot-toast'; 
 import loginpage from '../../public/loginpage.png';
 import CallFor from "../utilities/CallFor";
+import respos from '../../public/respos.png';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -91,6 +92,7 @@ export default function LoginPage() {
             <h1 className="text-[50px] font-bold tracking-tight">
               Res<span className="text-gray-500">POS</span>
             </h1>
+            {/* <img src={respos} className="my-5" /> */}
             <p className="text-3xl text-gray-500 -tracking-tight">Welcome Back</p>
           </div>
 
