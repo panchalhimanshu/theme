@@ -200,7 +200,7 @@ const Layout = ({ children }) => {
     >
       <Toaster />
       <aside
-        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300 dark:bg-black dark:text-white  bg-white text-gray-80'}  border border-t-0 border-gray-300 ${
+        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300  text-gray-80'}  border border-t-0 border-gray-300 ${
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "
         }`}
       >
