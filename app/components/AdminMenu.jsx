@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 import { LayoutDashboard, User, Settings, FileCheck2, Circle, ChevronDown, ChevronRight } from 'lucide-react';
 
-const AdminMenu = ({
+export const AdminMenu = ({
     isActive,
     isSidebarOpen,
     toggleMenu,
@@ -11,224 +11,120 @@ const AdminMenu = ({
     handleMenuHover,
     handleMenuLeave
 }) => {
-    const isUserRouteActive = isActive('/admin/user1') || isActive('/admin/user2');
-    const isManageUsersOpen = isMenuOpen('manageUsers') || isUserRouteActive;
-    const isManageSettingsOpen = isMenuOpen('manageSettings');
-    const isManageRolesOpen = isMenuOpen('manageRoles');
-    const isStaffManagementRouteActive = isActive('/admin/employee') || isActive('/admin/waiter') ;
-    const isStaffManagementOpen = isMenuOpen('staffManagement') || isStaffManagementRouteActive;
+    // Helper function to check if current path is under a parent path
+    const isUnderPath = (currentPath, parentPath) => {
+        return currentPath.startsWith(parentPath);
+    };
 
-    // Updated Inventory Management States
-    const isInventoryRouteActive = isActive('/admin/inventorymanagment/product') || isActive('/admin/inventorymanagment/recipe') || isActive('/admin/inventorymanagment/physical-stock') || isActive('/admin/inventorymanagment/purchase-request') || isActive('/admin/inventorymanagment/wastage-details') || isActive('/admin/inventorymanagment/product/productadd')   ;
-    const isInventoryManagementOpen = isMenuOpen('inventoryManagement') || isInventoryRouteActive;
+    const menuItems = [
+        { 
+            name: 'Dashboard', 
+            path: '/admin/dashboard', 
+            icon: <LayoutDashboard className="w-5 h-5" /> 
+        },
+        { 
+            name: 'Staff Management', 
+            path: '/admin/employee', 
+            icon: <User className="w-5 h-5" />, 
+            submenu: [
+                { name: 'Employee Management', path: '/admin/employee' },
+                { name: 'Waiter Management', path: '/admin/waiter' }
+            ] 
+        },
+        { 
+            name: 'Inventory Management', 
+            path: '/admin/inventorymanagment/product', 
+            icon: <FileCheck2 className="w-5 h-5" />, 
+            submenu: [
+                { name: 'Product', path: '/admin/inventorymanagment/product' },
+                { name: 'Recipe', path: '/admin/inventorymanagment/recipe' },
+                { name: 'Physical Stock', path: '/admin/inventorymanagment/physical-stock' },
+                { name: 'Purchase Request', path: '/admin/inventorymanagment/purchaserequest' },
+                { name: 'Wastage Details', path: '/admin/inventorymanagment/wastage' }
+            ] 
+        },
+        { 
+            name: 'Manage Users', 
+            path: '/admin/user1', 
+            icon: <User className="w-5 h-5" />, 
+            submenu: [
+                { name: 'User1', path: '/admin/user1' },
+                { name: 'User2', path: '/admin/user2' }
+            ] 
+        },
+        { 
+            name: 'Settings', 
+            path: '/admin/settings', 
+            icon: <Settings className="w-5 h-5" />
+        }
+    ];
 
     return (
         <>
-            {/* Dashboard Menu Item */} 
-            <li className="px-4 py-2">
-                <Link
-                    to="/admin/dashboard"
-                    className={`p-2 text-sm  rounded-md flex items-center gap-2 ${isActive('/admin/dashboard') ? 'bg-black text-white dark:bg-white  dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                    onMouseEnter={() => handleMenuHover('dashboard')}
-                    onMouseLeave={handleMenuLeave}
-                >
-                    <LayoutDashboard className="w-5 h-5" />
-                    {isSidebarOpen && <span> Dashboard</span>}
-                    {hoveredMenu === 'dashboard' && !isSidebarOpen && <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md "> Dashboard</span>}
-                </Link>
-            </li>
+            {menuItems.map((item, index) => {
+                // Check if current path is under this menu item's path
+                const isItemActive = item.submenu 
+                    ? item.submenu.some(subitem => isUnderPath(window.location.pathname, subitem.path))
+                    : isActive(item.path);
+                
+                const isSubmenuOpen = isMenuOpen(item.name.toLowerCase().replace(/ /g, '')) || isItemActive;
 
-            {/* Staff Management Menu Item */}
-            <li className="px-4 py-2 relative">
-                <div
-                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isStaffManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                    onClick={() => toggleMenu('staffManagement')}
-                    onMouseEnter={() => handleMenuHover('staffManagement')}
-                    onMouseLeave={handleMenuLeave}
-                >
-                     <Link
-                                to="/admin/employee"><User className="w-5 h-5" /></Link>
-                    {isSidebarOpen && (
-                        <>
-                            <span>Staff Management</span>
-                            {isStaffManagementOpen ? <ChevronDown className="w-4 h-4 ml-auto" /> : <ChevronRight className="w-4 h-4 ml-auto" />}
-                        </>
-                    )}
-                    {hoveredMenu === 'staffManagement' && !isSidebarOpen && (
-                        <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md ">
-                            Staff Management
-                        </span>
-                    )}
-                </div>
-                {isSidebarOpen && isStaffManagementOpen && (
-                    <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/employee"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/employee') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                                <Circle className="w-3 h-3" /> <span>Employee Management</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/waiter"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/waiter') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                                <Circle className="w-3 h-3" /> <span>Waiter-Management</span>
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
-
-            {/* Inventory Management Menu Item */}
-            <li className="px-4 py-2 relative">
-                <div
-                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isInventoryManagementOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                    onClick={() => toggleMenu('inventoryManagement')}
-                    onMouseEnter={() => handleMenuHover('inventoryManagement')}
-                    onMouseLeave={handleMenuLeave}
-                >
-                    <Link
-                                to="/admin/inventorymanagment/product"><FileCheck2 className="w-5 h-5" /></Link>
-                    {isSidebarOpen && ( 
-                        <>
-                            <span>Inventory Management</span>
-                            {isInventoryManagementOpen ? <ChevronDown className="w-4 h-4 ml-auto" /> : <ChevronRight className="w-4 h-4 ml-auto" />}
-                        </>
-                    )}
-                    {hoveredMenu === 'inventoryManagement' && !isSidebarOpen && (
-                        <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md ">Inventory Management</span>
-                    )}
-                </div>
-                {isSidebarOpen && isInventoryManagementOpen && (
-                    <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/inventorymanagment/product"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/product') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" />  <span>Product</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/inventorymanagment/recipe"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/recipe') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" />  <span>Recipe</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/inventorymanagment/physical-stock"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/physical-stock') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" />  <span>Physical Stock</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/inventorymanagment/purchase-request"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/purchase-request') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" />  <span>Purchase Request</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/inventorymanagment/wastage-details"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/inventorymanagment/wastage-details') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" />  <span>Wastage Details</span>
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
-
-            {/* Manage Users Menu Item */}
-            <li className="px-4 py-2 relative">
-                <div
-                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isManageUsersOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                    onClick={() => toggleMenu('manageUsers')}
-                    onMouseEnter={() => handleMenuHover('manageUsers')}
-                    onMouseLeave={handleMenuLeave}
-                >
-                    <User className="w-5 h-5" />
-                    {isSidebarOpen && (
-                        <>
-                            <span>Manage Users</span>
-                            {isManageUsersOpen ? <ChevronDown className="w-4 h-4 ml-auto" /> : <ChevronRight className="w-4 h-4 ml-auto" />}
-                        </>
-                    )}
-                    {hoveredMenu === 'manageUsers' && !isSidebarOpen && (
-                        <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md ">Manage Users</span>
-                    )}
-                </div>
-                {isSidebarOpen && isManageUsersOpen && (
-                    <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/user1"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/user1') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" /> <span>User1</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/user2"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/user2') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" /> <span>User2</span>
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
-
-            {/* Settings Menu Item */}
-            <li className="px-4 py-2 relative">
-                <div
-                    className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${isManageSettingsOpen ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                    onClick={() => toggleMenu('manageSettings')}
-                    onMouseEnter={() => handleMenuHover('manageSettings')}
-                    onMouseLeave={handleMenuLeave}
-                >
-                    <Settings className="w-5 h-5" />
-                    {isSidebarOpen && (
-                        <>
-                            <span>Manage Settings</span>
-                            {isManageSettingsOpen ? <ChevronDown className="w-4 h-4 ml-auto" /> : <ChevronRight className="w-4 h-4 ml-auto" />}
-                        </>
-                    )}
-                    {hoveredMenu === 'manageSettings' && !isSidebarOpen && (
-                        <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md ">Manage Settings</span>
-                    )}
-                </div>
-                {isSidebarOpen && isManageSettingsOpen && (
-                    <ul className={`ml-6 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out`}>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/manage-account"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/manage-account') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" /> <span>Manage Account</span>
-                            </Link>
-                        </li>
-                        <li className="my-2">
-                            <Link
-                                to="/admin/logs"
-                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isActive('/admin/logs') ? 'bg-black text-white dark:bg-white dark:text-black' : 'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'}`}
-                            >
-                               <Circle className="w-3 h-3" /> <span>Logs</span>
-                            </Link>
-                        </li>
-                    </ul>
-                )}
-            </li>
+                return (
+                    <li key={index} className="px-4 py-2 relative">
+                        <div
+                            className={`p-2 text-sm rounded-md flex items-center gap-2 cursor-pointer ${
+                                isItemActive ? 'bg-black text-white dark:bg-white dark:text-black' : 
+                                'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'
+                            }`}
+                            onClick={() => toggleMenu(item.name.toLowerCase().replace(/ /g, ''))}
+                            onMouseEnter={() => handleMenuHover(item.name)}
+                            onMouseLeave={handleMenuLeave}
+                        >
+                            <Link to={item.path}>{item.icon}</Link>
+                            {isSidebarOpen && (
+                                <>
+                                    {item.submenu ? <span>{item.name}</span> : 
+                                        <Link to={item.path}><span>{item.name}</span></Link>
+                                    }
+                                    {item.submenu && (
+                                        isSubmenuOpen ? 
+                                            <ChevronDown className="w-4 h-4 ml-auto" /> : 
+                                            <ChevronRight className="w-4 h-4 ml-auto" />
+                                    )}
+                                </>
+                            )}
+                            {hoveredMenu === item.name && !isSidebarOpen && (
+                                <span className="absolute left-full z-50 ml-2 bg-black text-white dark:bg-white dark:text-black p-2 rounded-md">
+                                    {item.name}
+                                </span>
+                            )}
+                        </div>
+                        {isSidebarOpen && isSubmenuOpen && item.submenu && (
+                            <ul className="ml-0 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out">
+                                {item.submenu.map((submenuItem, subIndex) => {
+                                    const isSubmenuItemActive = isUnderPath(window.location.pathname, submenuItem.path);
+                                    
+                                    return (
+                                        <li key={subIndex} className="my-2">
+                                            <Link
+                                                to={submenuItem.path}
+                                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${
+                                                    isSubmenuItemActive ? 
+                                                        'bg-black text-white dark:bg-white dark:text-black' : 
+                                                        'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'
+                                                }`}
+                                            >
+                                                <Circle className="w-3 h-3" /> 
+                                                <span>{submenuItem.name}</span>
+                                            </Link>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
+                    </li>
+                );
+            })}
         </>
     );
 };

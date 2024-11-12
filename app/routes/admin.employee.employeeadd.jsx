@@ -73,9 +73,9 @@ export default function Settings() {
         password: formData.password,
         usercode: '',
         image: '',
-        profilestatus: profileStatus ? 1 : 0, // 1 for active, 0 for inactive
+        profilestatus: null, // 1 for active, 0 for inactive
         isapproved: true,
-        accountstatus: 0,
+        accountstatus: profileStatus ? "1" : "0",
         roleid: formData.role,
         roleName: '',
         roleModels: [
@@ -119,7 +119,7 @@ export default function Settings() {
     <Layout>
       <Toaster />
       <div className="mx-auto p-6 rounded-lg shadow-md dark:bg-black bg-white">
-        <h2 className="text-2xl font-semibold mb-6">Employee Info</h2>
+        <h2 className="text-2xl font-semibold mb-6">Add Employee Info</h2>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* First Name */}
           <div>

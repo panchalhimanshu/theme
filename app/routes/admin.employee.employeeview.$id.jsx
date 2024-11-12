@@ -70,7 +70,7 @@ export default function Settings() {
           
         });
 
-        setProfileStatus(userData.profilestatus); // Adjusted for profile status
+        setProfileStatus(userData.accountstatus == 1); // Adjusted for profile status
       } catch (error) {
         toast.error('Error fetching data');
       }

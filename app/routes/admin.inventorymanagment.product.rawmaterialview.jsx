@@ -5,7 +5,7 @@ export default function Component() {
   return (
     <Layout>
       <div className="bg-white dark:bg-black dark:text-white text-black p-6 bg-background rounded-lg">
-        <h2 className="text-xl font-semibold mb-4">View Raw Material</h2>
+        <h2 className="text-xl font-semibold mb-4">Raw Material Details</h2>
         <form>
           <div className="mb-4">
             <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300" htmlFor="material-name">

@@ -76,12 +76,13 @@ export default function Waiter() {
   };
 
   const handleStatusToggle = async (uid, currentStatus) => {
-    const newStatusValue = currentStatus ? 0 : 1; // 1 is Active, 0 is Inactive
+
+    const newStatusValue = currentStatus == 0 ? 1 : 0 ; // 1 is Active, 0 is Inactive
     setLoading(true);
 
     try {
-      await CallFor(`/users/${uid}/profile-status`, 'PATCH', JSON.stringify({
-        profileStatus: newStatusValue,
+      await CallFor(`/users/${uid}/account-status`, 'PATCH', JSON.stringify({
+        accountStatus: newStatusValue,
       }), 'Auth');
       fetchEmployees(); // Refresh the data after updating status
     } catch (error) {
@@ -175,15 +176,15 @@ export default function Waiter() {
                 <td className="p-2  ">  {Role[employee.roleid] || 'NA'} </td>
                 <td className="p-2">
                   <Switch
-                    onChange={() => handleStatusToggle(employee.uid, employee.profilestatus)}
-                    checked={employee.profilestatus == 1} // Check if profile status is active
+                    onChange={() => handleStatusToggle(employee.uid, employee.accountstatus)}
+                    checked={employee.accountstatus == 1} // Check if profile status is active
                     offColor="#ff4d4d"
                     onColor="#00e676"
                     uncheckedIcon={false}
                     checkedIcon={false}
                   />
                 </td>
-                <td className="p-2">{employee.profilestatus ? 'Active' : 'Inactive'}</td>
+                <td className="p-2">{employee.accountstatus ? 'Active' : 'Inactive'}</td>
                 <td className="p-2">{new Date(employee.logintime).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
 
                 <td className="p-2">

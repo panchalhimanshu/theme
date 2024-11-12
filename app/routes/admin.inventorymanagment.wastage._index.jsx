@@ -13,11 +13,11 @@ function Index() {
 
       <div className="space-y-4 ">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Purchase Request List</h2>
+          <h2 className="text-xl font-semibold">Wastage List</h2>
           <button className="px-4 py-2  bg-black text-white dark:bg-white dark:text-black rounded-full  transition-colors">
             <Link to={'/admin/inventorymanagment/wastage/addwastage'}>
             <span className="mr-2 ">+</span>
-            Add Request
+            Add Wastage
             </Link>
           </button>
         </div>

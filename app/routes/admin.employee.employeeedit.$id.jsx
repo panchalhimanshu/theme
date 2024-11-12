@@ -62,7 +62,7 @@ export default function Settings() {
           
         });
 
-        setProfileStatus(userData.profilestatus); // Adjusted for profile status
+        setProfileStatus(userData.accountstatus == 1); // Adjusted for profile status
       } catch (error) {
         toast.error('Error fetching data');
       }
@@ -86,7 +86,7 @@ export default function Settings() {
         emailid: formData.emailid,
         mobno: formData.mobno,
         password: formData.password, // Ensure this is handled securely
-        profilestatus: profileStatus ? 1 : 0,
+        accountstatus: profileStatus ? 1 : 0,
         roleid: formData.roleid,
         employee_id:formData.employee_id,
         roleModels: [{ ...formData.roleModels[0], roleid: formData.roleid }], // Wrap roleid inside roleModels
