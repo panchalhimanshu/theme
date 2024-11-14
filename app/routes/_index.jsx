@@ -6,6 +6,7 @@ import loginpage from '../../public/loginpage.png';
 import CallFor from "../utilities/CallFor";
 import respos from '../../public/respos.png';
 
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,15 +47,15 @@ export default function LoginPage() {
 
         const roleId = response.data.data.roleid;
 
-        console.log(roleId,"roleod")
+        // console.log(roleId,"roleod")
         if (roleId == '2') {
           navigate('/admin/dashboard');
         } else if (roleId == '1') {
           navigate('/station/dashboard');
         } else if (roleId == '3') {
-          navigate('/warehouse/dashboard');
+          navigate('/waiter/dashboard');
         } else {
-          console.log('Unknown role, unable to redirect.');
+          toast.error('Unknown role, unable to redirect.');
         }
 
         toast.success('Login successful...');
@@ -89,10 +90,10 @@ export default function LoginPage() {
       <div className="flex items-center justify-center ">
         <div className="mx-auto w-full max-w-xl space-y-12 shadow-md p-8 bg-white">
           <div className="space-y-2 ">
-            <h1 className="text-[50px] font-bold tracking-tight">
+            {/* <h1 className="text-[50px] font-bold tracking-tight">
               Res<span className="text-gray-500">POS</span>
-            </h1>
-            {/* <img src={respos} className="my-5" /> */}
+            </h1> */}
+            <img src={respos} className="my-5" />
             <p className="text-3xl text-gray-500 -tracking-tight">Welcome Back</p>
           </div>
 

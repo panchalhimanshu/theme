@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import AdminMenu from "./AdminMenu";
 import StationMenu from "./StationMenu";
-import WarehouseMenu from "./WarehouseMenu";
+import WaiterMenu from "./WaiterMenu";
 import { toast, Toaster } from "react-hot-toast";
 import CallFor from "../utilities/CallFor";
 import respos from '../../public/respos.png';
@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
         const storedRoleIds = JSON.parse(atob(remixdatas));
         const pathname = location.pathname;
         setremixdata(storedRoleIds);
-        console.log(storedRoleIds, "dataremix");
+        // console.log(storedRoleIds, "dataremix");
         const storedRoleId = storedRoleIds?.roleid;
         // console.log(storedRoleId,"pathname");
 
@@ -76,10 +76,10 @@ const Layout = ({ children }) => {
           if (
             (storedRoleId == "2" &&
               (pathname.startsWith("/station") ||
-                pathname.startsWith("/warehouse"))) ||
+                pathname.startsWith("/waiter"))) ||
             (storedRoleId == "1" &&
               (pathname.startsWith("/admin") ||
-                pathname.startsWith("/warehouse"))) ||
+                pathname.startsWith("/waiter"))) ||
             (storedRoleId == "3" &&
               (pathname.startsWith("/admin") ||
                 pathname.startsWith("/station")))
@@ -113,11 +113,7 @@ const Layout = ({ children }) => {
   };
 
   const handleLogout = async () => {
-    if (typeof window !== "undefined") {
-      // Remove session data
-      sessionStorage.removeItem("remixdata");
-      sessionStorage.removeItem("token");
-    }
+   
 
     // Send POST request to /auth/logout
     try {
@@ -129,8 +125,14 @@ const Layout = ({ children }) => {
       );
 
       if (response.data.success) {
-        // If the response is successful, redirect to the homepage or login page
+        if (typeof window !== "undefined") {
+          // Remove session data
+          sessionStorage.removeItem("remixdata");
+          sessionStorage.removeItem("token");
         navigate("/");
+
+        }
+        // If the response is successful, redirect to the homepage or login page
       } else {
         // Handle error (e.g., show toast notification)
         toast.error("Logout failed. Please try again.");
@@ -200,7 +202,7 @@ const Layout = ({ children }) => {
     >
       <Toaster />
       <aside
-        className={`fixed left-0 shadow  top-0 h-full transition-all duration-300  text-gray-80'}  border border-t-0 border-gray-300 ${
+        className={`fixed left-0 shadow dark:bg-black dark:text-white  bg-white text-black top-0 h-full   text-gray-80'}  border border-t-0 border-gray-300 ${
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "
         }`}
       >
@@ -246,9 +248,14 @@ const Layout = ({ children }) => {
               <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />
             )}
             {roleId == 3 && (
-              <WarehouseMenu
-                isActive={isActive}
-                isSidebarOpen={isSidebarOpen}
+              <WaiterMenu
+              isActive={isActive}
+              isSidebarOpen={isSidebarOpen}
+              toggleMenu={toggleMenu}
+              isMenuOpen={isMenuOpen}
+              hoveredMenu={hoveredMenu}
+              handleMenuHover={handleMenuHover}
+              handleMenuLeave={handleMenuLeave}
               />
             )}
           </ul>

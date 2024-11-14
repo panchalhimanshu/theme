@@ -22,7 +22,6 @@ function Index() {
                 onChange={(e) => setReqDate(e.target.value)}
                 className="w-full dark:bg-black dark:text-white bg-white text-black  px-3 py-2 border rounded-md appearance-none"
               />
-              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none h-4 w-4 text-gray-400" />
             </div>
           </div>
           <div className="flex-1 min-w-[200px]">
@@ -33,7 +32,6 @@ function Index() {
                 onChange={(e) => setDueDate(e.target.value)}
                 className="w-full dark:bg-black dark:text-white bg-white text-black  px-3 py-2 border rounded-md appearance-none"
               />
-              <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none h-4 w-4 text-gray-400" />
             </div>
           </div>
           <div className="flex-1 min-w-[200px]">

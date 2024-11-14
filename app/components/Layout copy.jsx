@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import AdminMenu from "./AdminMenu";
 import StationMenu from "./StationMenu";
-import WarehouseMenu from "./WarehouseMenu";
+import WarehouseMenu from "./WaiterMenu";
 import { toast, Toaster } from "react-hot-toast";
 import CallFor from "../utilities/CallFor";
 import respos from "../../public/respos.png";

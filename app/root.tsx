@@ -4,10 +4,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 import "./tailwind.css";
 import { Link } from "@remix-run/react";
+import { json } from "@remix-run/node";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,7 +24,12 @@ export const links: LinksFunction = () => [
   },
 ];
 
+
+
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  
+
   return (
     <html lang="en">
       <head>
@@ -34,6 +41,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         {children}
         <ScrollRestoration />
+          <script        />
         <Scripts />
       </body>
     </html>
@@ -51,7 +59,7 @@ export const ErrorBoundary = () => {
         Go back to Home
       </Link>
     </div>
-    </div>
+    </div>  
   );
 };
 

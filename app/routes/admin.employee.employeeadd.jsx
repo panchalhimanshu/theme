@@ -117,7 +117,6 @@ export default function Settings() {
 
   return (
     <Layout>
-      <Toaster />
       <div className="mx-auto p-6 rounded-lg shadow-md dark:bg-black bg-white">
         <h2 className="text-2xl font-semibold mb-6">Add Employee Info</h2>
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -257,22 +256,22 @@ export default function Settings() {
 
           {/* Profile Status */}
           <div className="flex items-center mt-4">
-  <label className="block text-sm font-medium text-muted-foreground" htmlFor="profileStatus">
-    Profile Status
-  </label>
-  <Switch
-    id="profileStatus"
-    onChange={toggleProfileStatus}
-    checked={profileStatus}
-    className="ml-4"
-    onColor="#4CAF50"
-    offColor="#CCCCCC"
-    onHandleColor="#FFFFFF"
-    offHandleColor="#FFFFFF"
-    checkedIcon={false}
-    uncheckedIcon={false}
-  />
-</div>
+            <label className="block text-sm font-medium text-muted-foreground" htmlFor="profileStatus">
+              Profile Status
+            </label>
+            <Switch
+              id="profileStatus"
+              onChange={toggleProfileStatus}
+              checked={profileStatus}
+              className="ml-4"
+              onColor="#4CAF50"
+              offColor="#CCCCCC"
+              onHandleColor="#FFFFFF"
+              offHandleColor="#FFFFFF"
+              checkedIcon={false}
+              uncheckedIcon={false}
+            />
+          </div>
         </form>
         <div className="flex justify-end mt-6">
           <button

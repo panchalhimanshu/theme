@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 import { LayoutDashboard, User, Settings, FileCheck2, Circle, ChevronDown, ChevronRight } from 'lucide-react';
 
-export const AdminMenu = ({
+export const WaiterMenu = ({
     isActive,
     isSidebarOpen,
     toggleMenu,
@@ -19,44 +19,40 @@ export const AdminMenu = ({
     const menuItems = [
         {
             name: 'Dashboard',
-            path: '/admin/dashboard',
+            path: '/waiter/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />
         },
         {
-            name: 'Staff Management',
-            path: '/admin/employee',
+            name: 'Tabel Management',
+            path: '/waiter/tabelmanagement',
             icon: <User className="w-5 h-5" />,
-            submenu: [
-                { name: 'Employee Management', path: '/admin/employee' },
-                { name: 'Waiter Management', path: '/admin/waiter' }
-            ]
         },
+        // {
+        //     name: 'Inventory Management',
+        //     path: '/waiter/inventorymanagment/product',
+        //     icon: <FileCheck2 className="w-5 h-5" />,
+        //     submenu: [
+        //         { name: 'Product', path: '/waiter/inventorymanagment/product' },
+        //         { name: 'Recipe', path: '/waiter/inventorymanagment/recipe' },
+        //         { name: 'Physical Stock', path: '/waiter/inventorymanagment/physical-stock' },
+        //         { name: 'Purchase Request', path: '/waiter/inventorymanagment/purchaserequest' },
+        //         { name: 'Wastage Details', path: '/waiter/inventorymanagment/wastage' }
+        //     ]
+        // }
         {
-            name: 'Inventory Management',
-            path: '/admin/inventorymanagment/product',
-            icon: <FileCheck2 className="w-5 h-5" />,
-            submenu: [
-                { name: 'Product', path: '/admin/inventorymanagment/product' },
-                { name: 'Recipe', path: '/admin/inventorymanagment/recipe' },
-                { name: 'Physical Stock', path: '/admin/inventorymanagment/physical-stock' },
-                { name: 'Purchase Request', path: '/admin/inventorymanagment/purchaserequest' },
-                { name: 'Wastage Details', path: '/admin/inventorymanagment/wastage' }
-            ]
-        },
-        {
-            name: 'Manage Users',
-            path: '/admin/user1',
-            icon: <User className="w-5 h-5" />,
-            submenu: [
-                { name: 'User1', path: '/admin/user1' },
-                { name: 'User2', path: '/admin/user2' }
-            ]
-        },
-        {
-            name: 'Settings',
-            path: '/admin/settings',
+            name: 'Order Menu',
+            path: '/waiter/ordermenu',
             icon: <Settings className="w-5 h-5" />
-        }
+        },
+        {
+            name: 'Orders',
+            path: '/waiter/orders',
+            icon: <User className="w-5 h-5" />,
+            submenu: [
+                { name: 'Today Orders', path: '/waiter/orders/todayorders' },
+                { name: 'Orders History', path: '/waiter/orders/orderhistory' }
+            ]
+        },
     ];
 
     return (
@@ -127,4 +123,4 @@ export const AdminMenu = ({
     );
 };
 
-export default AdminMenu;
+export default WaiterMenu;

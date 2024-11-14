@@ -11,12 +11,12 @@ export default function Waiter() {
   const [status, setStatus] = useState('');
   const [role, setRole] = useState('');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(7);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-
+  
   const ROLES = {
     Outlet_Manager: 2,
     Waiter: 3,
@@ -47,12 +47,12 @@ export default function Waiter() {
         'Auth'
       );
 
-      if (!response.data || !response.data.status) {
+      if (!response.data || !response.data.data.status) {
         throw new Error('Failed to fetch roles');
       }
 
-      const data = response.data.data.users || [];
-      setTotalPages(Math.ceil(response.data.data.pagination.totalUsers / pageSize));
+      const data = response.data.data.data.users || [];
+      setTotalPages(Math.ceil(response.data.data.data.pagination.totalUsers / pageSize));
       setEmployees(data);
     } catch (error) {
       console.error(error);
@@ -77,7 +77,7 @@ export default function Waiter() {
 
   const handleStatusToggle = async (uid, currentStatus) => {
 
-    const newStatusValue = currentStatus == 0 ? 1 : 0 ; // 1 is Active, 0 is Inactive
+    const newStatusValue = currentStatus == 0 ? 1 : 0; // 1 is Active, 0 is Inactive
     setLoading(true);
 
     try {
@@ -171,7 +171,7 @@ export default function Waiter() {
           <tbody>
             {employees.map((employee, index) => (
               <tr className="border-b border-border" key={employee.uid}>
-                 <td className="p-2">#{employee.uid}</td>
+                <td className="p-2">#{employee.uid}</td>
                 <td className="p-2">{employee.fullname}</td>
                 <td className="p-2  ">  {Role[employee.roleid] || 'NA'} </td>
                 <td className="p-2">
@@ -184,7 +184,7 @@ export default function Waiter() {
                     checkedIcon={false}
                   />
                 </td>
-                <td className="p-2">{employee.accountstatus ? 'Active' : 'Inactive'}</td>
+                <td className="p-2">{employee.accountstatus ==1 ? 'Active' : 'Inactive'}</td>
                 <td className="p-2">{new Date(employee.logintime).toLocaleDateString('en-GB').replace(/\//g, '-')}</td>
 
                 <td className="p-2">
@@ -198,7 +198,7 @@ export default function Waiter() {
                 </td>
               </tr>
             ))}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && <p className="text-red-500 mt-4">{error}</p>}
 
           </tbody>
         </table>
