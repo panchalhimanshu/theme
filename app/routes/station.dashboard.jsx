@@ -1,9 +1,6 @@
-import Button from '~/components/Button';
-import Layout from '~/components/Layout';
+import Layout from '../components/Layout';
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from 'recharts';
-
-
 
 export default function Index() {
   const [users, setUsers] = useState([]);

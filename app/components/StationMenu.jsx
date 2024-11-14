@@ -19,43 +19,8 @@ export const StationMenu = ({
     const menuItems = [
         {
             name: 'Dashboard',
-            path: '/admin/dashboard',
+            path: '/station/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />
-        },
-        {
-            name: 'Staff Management',
-            path: '/admin/employee',
-            icon: <User className="w-5 h-5" />,
-            submenu: [
-                { name: 'Employee Management', path: '/admin/employee' },
-                { name: 'Waiter Management', path: '/admin/waiter' }
-            ]
-        },
-        {
-            name: 'Inventory Management',
-            path: '/admin/inventorymanagment/product',
-            icon: <FileCheck2 className="w-5 h-5" />,
-            submenu: [
-                { name: 'Product', path: '/admin/inventorymanagment/product' },
-                { name: 'Recipe', path: '/admin/inventorymanagment/recipe' },
-                { name: 'Physical Stock', path: '/admin/inventorymanagment/physical-stock' },
-                { name: 'Purchase Request', path: '/admin/inventorymanagment/purchaserequest' },
-                { name: 'Wastage Details', path: '/admin/inventorymanagment/wastage' }
-            ]
-        },
-        {
-            name: 'Manage Users',
-            path: '/admin/user1',
-            icon: <User className="w-5 h-5" />,
-            submenu: [
-                { name: 'User1', path: '/admin/user1' },
-                { name: 'User2', path: '/admin/user2' }
-            ]
-        },
-        {
-            name: 'Settings',
-            path: '/admin/settings',
-            icon: <Settings className="w-5 h-5" />
         }
     ];
 

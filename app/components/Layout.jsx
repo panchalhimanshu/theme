@@ -245,7 +245,13 @@ const Layout = ({ children }) => {
               />
             )}
             {roleId == 1 && (
-              <StationMenu isActive={isActive} isSidebarOpen={isSidebarOpen} />
+              <StationMenu     isActive={isActive}
+              isSidebarOpen={isSidebarOpen}
+              toggleMenu={toggleMenu}
+              isMenuOpen={isMenuOpen}
+              hoveredMenu={hoveredMenu}
+              handleMenuHover={handleMenuHover}
+              handleMenuLeave={handleMenuLeave}/>
             )}
             {roleId == 3 && (
               <WaiterMenu

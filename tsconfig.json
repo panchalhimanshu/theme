@@ -6,7 +6,7 @@
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx"
-, "app/routes/$catchall.jsx", "app/routes/admin.dashboard._index.jsx", "app/routes/admin.settings.jsx", "app/routes/admin.user1.jsx", "app/routes/admin.user2.jsx", "app/routes/admin.user31.jsx", "app/routes/admin.user32.jsx", "app/routes/admin.users.jsx", "app/routes/Login.jsx", "app/routes/profile.jsx", "app/routes/station.dashboard._index.jsx", "app/routes/station.reports.jsx", "app/routes/waiter.dashboard._index.jsx", "app/routes/waiter.inventory._index.jsx", "app/components/StationMenu.jsx", "app/components/WaiterMenu.jsx", "app/components/Layout.jsx", "app/components/Pagination.jsx", "app/utilities/GlobalPropperties.jsx"  ],
+, "app/routes/$catchall.jsx", "app/routes/admin.dashboard._index.jsx", "app/routes/admin.settings.jsx", "app/routes/admin.user1.jsx", "app/routes/admin.user2.jsx", "app/routes/admin.user31.jsx", "app/routes/admin.user32.jsx", "app/routes/admin.users.jsx", "app/routes/Login.jsx", "app/routes/profile.jsx", "app/routes/station.dashboard.jsx", "app/routes/station.reports.jsx", "app/routes/waiter.dashboard._index.jsx", "app/routes/waiter.inventory._index.jsx", "app/components/StationMenu.jsx", "app/components/WaiterMenu.jsx", "app/components/Layout.jsx", "app/components/Pagination.jsx", "app/utilities/GlobalPropperties.jsx"  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["@remix-run/node", "vite/client"],
