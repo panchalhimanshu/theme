@@ -1,0 +1,5 @@
+VITE_API_URL=http://localhost:5000/api/
+VITE_VIEW_DOCUMENT_URL=http://192.168.1.176:126/
+VITE_SHOP_MY_STATION_URL=https://staging.shopmystation.com/
+VITE_SMS_LIVE_URL=
+VITE_ENVIRONMENT=LOCAL

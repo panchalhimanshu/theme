@@ -51,15 +51,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export const ErrorBoundary = () => {
   return (
-    <div>
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold text-gray-700">404 - Not Found</h1>
-      <p className="mt-4 text-lg text-gray-600">The page you're looking for doesn't exist.</p>
-      <Link to="/" className="mt-6 text-indigo-600 hover:underline">
-        Go back to Home
-      </Link>
-    </div>
-    </div>  
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', backgroundColor: '#f3f4f6' }}>
+    <h1 style={{ fontSize: '2.25rem', fontWeight: '700', color: '#4b5563' }}>404 - Not Found</h1>
+    <p style={{ marginTop: '1rem', fontSize: '1.125rem', color: '#6b7280' }}>The page you're looking for doesn't exist.</p>
+    <Link to="/" style={{ marginTop: '1.5rem', color: '#4f46e5', textDecoration: 'underline' }}>
+      Go back to Home
+    </Link>
+  </div> 
   );
 };
 

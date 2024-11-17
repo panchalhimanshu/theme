@@ -11,7 +11,6 @@ export const AdminMenu = ({
     handleMenuHover,
     handleMenuLeave
 }) => {
-    // Helper function to check if current path is under a parent path
     const isUnderPath = (currentPath, parentPath) => {
         return currentPath.startsWith(parentPath);
     };
@@ -62,7 +61,6 @@ export const AdminMenu = ({
     return (
         <>
             {menuItems.map((item, index) => {
-                // Check if current path is under this menu item's path
                 const isItemActive = item.submenu
                     ? item.submenu.some(subitem => isUnderPath(window.location.pathname, subitem.path))
                     : isActive(item.path);
@@ -98,26 +96,31 @@ export const AdminMenu = ({
                                 </span>
                             )}
                         </div>
-                        {isSidebarOpen && isSubmenuOpen && item.submenu && (
-                            <ul className="ml-0 mt-2 px-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out">
-                                {item.submenu.map((submenuItem, subIndex) => {
-                                    const isSubmenuItemActive = isUnderPath(window.location.pathname, submenuItem.path);
+                        {isSidebarOpen && item.submenu && (
+                            <ul
+                                className={`ml-0 px-2 mt-2 border border-gray-300 bg-white dark:bg-black dark:text-white text-black rounded-lg shadow-lg transition-all duration-300 ease-in-out 
+                                    ${isSubmenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}
+                                style={{ transition: 'max-height 0.3s ease, opacity 0.3s ease' }}
+                            >
+                                {item.submenu &&
+                                    item.submenu.map((submenuItem, subIndex) => {
+                                        const isSubmenuItemActive = isUnderPath(window.location.pathname, submenuItem.path);
 
-                                    return (
-                                        <li key={subIndex} className="my-2">
-                                            <Link
-                                                to={submenuItem.path}
-                                                className={`p-2 text-sm rounded-md flex items-center gap-2 ${isSubmenuItemActive ?
-                                                        'bg-black text-white dark:bg-white dark:text-black' :
-                                                        'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'
-                                                    }`}
-                                            >
-                                                <Circle className="w-3 h-3" />
-                                                <span>{submenuItem.name}</span>
-                                            </Link>
-                                        </li>
-                                    );
-                                })}
+                                        return (
+                                            <li key={subIndex} className="my-2">
+                                                <Link
+                                                    to={submenuItem.path}
+                                                    className={`p-2 text-sm rounded-md flex items-center gap-2 ${isSubmenuItemActive ?
+                                                            'bg-black text-white dark:bg-white dark:text-black' :
+                                                            'dark:hover:bg-white dark:hover:text-black hover:bg-black hover:text-white'
+                                                        }`}
+                                                >
+                                                    <Circle className="w-3 h-3" />
+                                                    <span>{submenuItem.name}</span>
+                                                </Link>
+                                            </li>
+                                        );
+                                    })}
                             </ul>
                         )}
                     </li>
