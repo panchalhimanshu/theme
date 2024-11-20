@@ -47,12 +47,12 @@ export default function Waiter() {
         'Auth'
       );
 
-      if (!response.data || !response.data.data.status) {
+      if (!response.data || !response.data.success) {
         throw new Error('Failed to fetch roles');
       }
 
-      const data = response.data.data.data.users || [];
-      setTotalPages(Math.ceil(response.data.data.data.pagination.totalUsers / pageSize));
+      const data = response.data.data.users || [];
+      setTotalPages(Math.ceil(response.data.data.pagination.totalUsers / pageSize));
       setEmployees(data);
     } catch (error) {
       console.error(error);

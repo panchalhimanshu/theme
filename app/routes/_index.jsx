@@ -24,17 +24,6 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      // const response = await fetch('http://localhost:5000/api/auth/loginuser', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({
-      //     email: email,
-      //     password: password,
-      //   }),
-      // });
-
 
      const response = await CallFor('auth/login','post', JSON.stringify({
       email: email,
@@ -47,11 +36,11 @@ export default function LoginPage() {
 
         const roleId = response.data.data.roleid;
 
-        // console.log(roleId,"roleod")
+        // console.log(response.data,"roleid")
         if (roleId == '2') {
           navigate('/admin/dashboard');
-        } else if (roleId == '1') {
-          navigate('/station/dashboard');
+        } else if (roleId == '4') {
+          navigate('/kitchenmanager/dashboard');
         } else if (roleId == '3') {
           navigate('/waiter/dashboard');
         } else {

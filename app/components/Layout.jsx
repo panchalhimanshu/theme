@@ -14,7 +14,7 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import AdminMenu from "./AdminMenu";
-import StationMenu from "./StationMenu";
+import Kitchenmanager from "./Kitchenmanager";
 import WaiterMenu from "./WaiterMenu";
 import { toast, Toaster } from "react-hot-toast";
 import CallFor from "../utilities/CallFor";
@@ -75,14 +75,14 @@ const Layout = ({ children }) => {
           setRoleId(Number(storedRoleId));
           if (
             (storedRoleId == "2" &&
-              (pathname.startsWith("/station") ||
+              (pathname.startsWith("/kitchenmanager") ||
                 pathname.startsWith("/waiter"))) ||
-            (storedRoleId == "1" &&
+            (storedRoleId == "4" &&
               (pathname.startsWith("/admin") ||
                 pathname.startsWith("/waiter"))) ||
             (storedRoleId == "3" &&
               (pathname.startsWith("/admin") ||
-                pathname.startsWith("/station")))
+                pathname.startsWith("/kitchenmanager")))
           ) {
             toast.error("Unauthorized access.");
             navigate("/"); // Redirect to login page if route is not allowed for the role
@@ -244,8 +244,8 @@ const Layout = ({ children }) => {
                 handleMenuLeave={handleMenuLeave}
               />
             )}
-            {roleId == 1 && (
-              <StationMenu     isActive={isActive}
+            {roleId == 4 && (
+              <Kitchenmanager     isActive={isActive}
               isSidebarOpen={isSidebarOpen}
               toggleMenu={toggleMenu}
               isMenuOpen={isMenuOpen}

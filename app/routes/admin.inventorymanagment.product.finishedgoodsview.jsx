@@ -163,6 +163,9 @@ export default function Component() {
             <p>Use Name: Prepared set</p>
             <p>Quantity: 1 Set</p>
           </div>
+
+
+          
         </div>
 
         <div className="flex justify-end">

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 import { LayoutDashboard, User, Settings, FileCheck2, Circle, ChevronDown, ChevronRight } from 'lucide-react';
 
-export const StationMenu = ({
+export const KitchenmanagerMenu = ({
     isActive,
     isSidebarOpen,
     toggleMenu,
@@ -19,7 +19,7 @@ export const StationMenu = ({
     const menuItems = [
         {
             name: 'Dashboard',
-            path: '/station/dashboard',
+            path: '/kitchenmanager/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />
         }
     ];
@@ -92,4 +92,4 @@ export const StationMenu = ({
     );
 };
 
-export default StationMenu;
+export default KitchenmanagerMenu;

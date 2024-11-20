@@ -14,8 +14,8 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import AdminMenu from "./AdminMenu";
-import StationMenu from "./StationMenu";
-import WarehouseMenu from "./WaiterMenu";
+import Kitchenmanager from "./Kitchenmanager";
+import WaiterMenu from "./WaiterMenu";
 import { toast, Toaster } from "react-hot-toast";
 import CallFor from "../utilities/CallFor";
 import respos from "../../public/respos.png";
@@ -67,7 +67,7 @@ const Layout = ({ children }) => {
         const storedRoleIds = JSON.parse(atob(remixdatas));
         const pathname = location.pathname;
         setremixdata(storedRoleIds);
-        console.log(storedRoleIds, "dataremix");
+        // console.log(storedRoleIds, "dataremix");
         const storedRoleId = storedRoleIds?.roleid;
         // console.log(storedRoleId,"pathname");
 
@@ -75,14 +75,14 @@ const Layout = ({ children }) => {
           setRoleId(Number(storedRoleId));
           if (
             (storedRoleId == "2" &&
-              (pathname.startsWith("/station") ||
-                pathname.startsWith("/warehouse"))) ||
-            (storedRoleId == "1" &&
+              (pathname.startsWith("/kitchenmanager") ||
+                pathname.startsWith("/waiter"))) ||
+            (storedRoleId == "4" &&
               (pathname.startsWith("/admin") ||
-                pathname.startsWith("/warehouse"))) ||
+                pathname.startsWith("/waiter"))) ||
             (storedRoleId == "3" &&
               (pathname.startsWith("/admin") ||
-                pathname.startsWith("/station")))
+                pathname.startsWith("/kitchenmanager")))
           ) {
             toast.error("Unauthorized access.");
             navigate("/"); // Redirect to login page if route is not allowed for the role
@@ -356,12 +356,15 @@ const Layout = ({ children }) => {
                   handleMenuLeave={handleMenuLeave}
                 />
               )}
-              {roleId == 1 && (
-                <StationMenu
-                  isActive={isActive}
-                  isSidebarOpen={isSidebarOpen}
-                />
-              )}
+               {roleId == 4 && (
+              <Kitchenmanager     isActive={isActive}
+              isSidebarOpen={isSidebarOpen}
+              toggleMenu={toggleMenu}
+              isMenuOpen={isMenuOpen}
+              hoveredMenu={hoveredMenu}
+              handleMenuHover={handleMenuHover}
+              handleMenuLeave={handleMenuLeave}/>
+            )}
               {roleId == 3 && (
                 <WarehouseMenu
                   isActive={isActive}

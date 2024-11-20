@@ -41,7 +41,6 @@ export default function AddProductForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Here you would typically send the data to your backend
   };
 
   const purchaseUnitOptions = [
