@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import Select from 'react-select';
 import CallFor from "../utilities/CallFor";
-import { toast, Toaster } from 'react-hot-toast'; 
-import { useNavigate } from '@remix-run/react';
+import { toast, Toaster } from 'react-hot-toast';
+import { Link, useNavigate, useParams } from '@remix-run/react';
 
 
 export default function AddProductForm() {
-
-
-  const navigate = useNavigate()
+  const router = useNavigate();
+  const { proid } = useParams();
+  const isEditMode = !!proid;
+  const [isExistingImage, setIsExistingImage] = useState(false);
   const [formData, setFormData] = useState({
     productName: '',
     category: '',
@@ -29,12 +30,67 @@ export default function AddProductForm() {
     gst: '',
     hsnCode: '',
     image: null,
+    imageUrl: '',
   });
 
   const [categories, setCategories] = useState([]);
   const [uoms, setUoms] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
   const [isUploaded, setIsUploaded] = useState(false);
+
+  // Fetch product data if in edit mode
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchProductData = async () => {
+        try {
+          const response = await CallFor(`products/${proid}`, 'get', null, 'Auth');
+          if (response.data.success) {
+            const productData = response.data.data;
+            setFormData({
+              productName: productData.proname,
+              category: productData.catid,
+              description: productData.prodescription,
+              barcode: productData.variant.pvbarcode,
+              purchaseUnit: productData.purchaseUoms.map(uom => uom.uomid),
+              consumptionUnit: productData.prouom,
+              purchasePrice: productData.variant.pvpurchaseprice,
+              salePrice: productData.variant.pvsalesprice,
+              reconciliationPrice: productData.variant.reconciliation_price,
+              normalLoss: productData.variant.normal_loss,
+              minStockLevelUnit: productData.location.min_stock_uom,
+              minStockLevel: productData.location.safetylevel,
+              atParStockLevelUnit: productData.location.par_stock_uom,
+              atParStockLevel: productData.location.reorderlevel,
+              closingStockCalculatedOn: [], // Set based on your needs
+              gst: productData.tax.taxrate,
+              hsnCode: productData.tax.hsncode,
+              image: productData.productimgid,
+              imageUrl: productData.product_image_url
+            });
+            // setIsUploaded(true);
+
+            if (productData.product_image_url) {
+
+              setImagePreview(`http://192.168.19.237:5000${productData.product_image_url}`);
+
+              // const imagePath = productData.product_image_url.replace('http://192.168.19.237:5000', '');
+              // setImagePreview(imagePath);
+              // setIsExistingImage(true);
+
+              setIsExistingImage(true);
+              setIsUploaded(true);
+            }
+
+          }
+        } catch (error) {
+          console.error('Error fetching product data:', error);
+          toast.error('Failed to load product data');
+        }
+      };
+
+      fetchProductData();
+    }
+  }, [proid, isEditMode]);
 
   // Fetch initial modal data and categories
   useEffect(() => {
@@ -103,28 +159,13 @@ export default function AddProductForm() {
           image: response.data.data.umid,
         }));
         setIsUploaded(true);
-        // toast.success('Image uploaded successfully');
+        toast.success('Image uploaded successfully');
       } else {
         toast.error("Image upload failed");
       }
     } catch (error) {
       console.error("Image upload failed:", error);
       toast.error("Failed to upload image");
-    }
-  };
-
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setImagePreview(reader.result);
-      reader.readAsDataURL(file);
-
-      setFormData(prevData => ({
-        ...prevData,
-        image: file,
-      }));
-      setIsUploaded(false);
     }
   };
 
@@ -135,6 +176,26 @@ export default function AddProductForm() {
     }));
     setImagePreview(null);
     setIsUploaded(false);
+    setIsExistingImage(false);
+  };
+
+  // Updated handleImageUpload function
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setIsExistingImage(false);
+      };
+      reader.readAsDataURL(file);
+
+      setFormData(prevData => ({
+        ...prevData,
+        image: file,
+      }));
+      setIsUploaded(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -190,25 +251,27 @@ export default function AddProductForm() {
       },
     };
 
+    console.log(body)
+
     try {
-      const response = await CallFor('products', 'post', body, 'Auth');
+      const response = await CallFor(`products/${proid}`, "put", body, 'Auth');
+
       if (response.data.success) {
-        toast.success('Product added successfully');
-        navigate("/admin/inventorymanagment/product/")
-        // Add any navigation or reset logic here
+        toast.success(`Product updated successfully`);
+        router.push('/admin/inventorymanagment/product'); // Adjust the route as needed
       } else {
-        toast.error('Failed to add product');
+        toast.error(`Failed to update  product`);
       }
     } catch (error) {
-      console.error('Error adding product:', error);
-      toast.error('An error occurred while adding the product');
+      console.error(`Error  updating  product:`, error);
+      toast.error(`An error occurred while updating the product`);
     }
   };
-  
+
   return (
     <Layout>
       <div className="bg-white text-black dark:bg-black dark:text-white rounded-lg mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6">Add Product</h1>
+        <h1 className="text-2xl font-bold mb-6">View Product</h1>
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid gap-6 md:grid-cols-2">
             <div>
@@ -226,22 +289,22 @@ export default function AddProductForm() {
             </div>
 
             <div>
-            <label htmlFor="category" className="block text-sm font-medium">Category</label>
-            <select
-              id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="mt-1 p-2 border border-border bg-white text-black dark:bg-black dark:text-white block w-full rounded-md shadow-sm"
-            >
-              <option value="">Select Category</option>
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>
-                  {category.catname}
-                </option>
-              ))}
-            </select>
-          </div>
+              <label htmlFor="category" className="block text-sm font-medium">Category</label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="mt-1 p-2 border border-border bg-white text-black dark:bg-black dark:text-white block w-full rounded-md shadow-sm"
+              >
+                <option value="">Select Category</option>
+                {categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.catname}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             <div className="md:col-span-2">
               <label htmlFor="description" className="block text-sm font-medium ">Product Description</label>
@@ -273,40 +336,40 @@ export default function AddProductForm() {
           <div className="space-y-4">
             <h2 className="text-lg font-semibold">Units</h2>
             <div className="grid gap-6 md:grid-cols-2">
-            <div>
-            <label htmlFor="purchaseUnit" className="block text-sm font-medium">Purchase Unit</label>
-            <Select
-              id="purchaseUnit"
-              name="purchaseUnit"
-              isMulti
-              value={formData.purchaseUnit.map(unit => {
-                const option = uomOptions.find(opt => opt.value === unit);
-                return option ? { value: option.value, label: option.label } : null;
-              })}
-              onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'purchaseUnit')}
-              options={uomOptions}
-              className="mt-1 w-full"
-              placeholder="Select multiple units"
-            />
-          </div>
+              <div>
+                <label htmlFor="purchaseUnit" className="block text-sm font-medium">Purchase Unit</label>
+                <Select
+                  id="purchaseUnit"
+                  name="purchaseUnit"
+                  isMulti
+                  value={formData.purchaseUnit.map(unit => {
+                    const option = uomOptions.find(opt => opt.value === unit);
+                    return option ? { value: option.value, label: option.label } : null;
+                  })}
+                  onChange={(selectedOptions) => handleMultiSelectChange(selectedOptions, 'purchaseUnit')}
+                  options={uomOptions}
+                  className="mt-1 w-full"
+                  placeholder="Select multiple units"
+                />
+              </div>
 
-          <div>
-            <label htmlFor="consumptionUnit" className="block text-sm font-medium">Consumption Unit</label>
-            <select
-              id="consumptionUnit"
-              name="consumptionUnit"
-              value={formData.consumptionUnit}
-              onChange={handleChange}
-              className="mt-1 p-2 border border-border bg-white text-black dark:bg-black dark:text-white block w-full rounded-md shadow-sm"
-            >
-              <option value="">Select consumption unit</option>
-              {uoms.map(uom => (
-                <option key={uom.uomid} value={uom.uomid}>
-                  {uom.uomname} {uom.uomsymbole ? `(${uom.uomsymbole})` : ''}
-                </option>
-              ))}
-            </select>
-          </div>
+              <div>
+                <label htmlFor="consumptionUnit" className="block text-sm font-medium">Consumption Unit</label>
+                <select
+                  id="consumptionUnit"
+                  name="consumptionUnit"
+                  value={formData.consumptionUnit}
+                  onChange={handleChange}
+                  className="mt-1 p-2 border border-border bg-white text-black dark:bg-black dark:text-white block w-full rounded-md shadow-sm"
+                >
+                  <option value="">Select consumption unit</option>
+                  {uoms.map(uom => (
+                    <option key={uom.uomid} value={uom.uomid}>
+                      {uom.uomname} {uom.uomsymbole ? `(${uom.uomsymbole})` : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
@@ -424,72 +487,77 @@ export default function AddProductForm() {
 
 
               <div>
-  <label htmlFor="closingStockCalculatedOn" className="block text-sm font-medium ">
-    Closing Stock Calculated On
-  </label>
-  <Select
-  id="closingStockCalculatedOn"
-  name="closingStockCalculatedOn"
-  isMulti
-  value={formData.closingStockCalculatedOn.map((value) => {
-    const option = closingStockOptions.find((opt) => opt.value === value);
-    return option ? { value: option.value, label: option.label } : null;
-  })}
-  onChange={(selectedOptions) =>
-    handleMultiSelectChange(selectedOptions, 'closingStockCalculatedOn')
-  }
-  options={closingStockOptions}
-  className="mt-1 w-full"
-  placeholder="Select calculation methods"
-/>
+                <label htmlFor="closingStockCalculatedOn" className="block text-sm font-medium ">
+                  Closing Stock Calculated On
+                </label>
+                <Select
+                  id="closingStockCalculatedOn"
+                  name="closingStockCalculatedOn"
+                  isMulti
+                  value={formData.closingStockCalculatedOn.map((value) => {
+                    const option = closingStockOptions.find((opt) => opt.value === value);
+                    return option ? { value: option.value, label: option.label } : null;
+                  })}
+                  onChange={(selectedOptions) =>
+                    handleMultiSelectChange(selectedOptions, 'closingStockCalculatedOn')
+                  }
+                  options={closingStockOptions}
+                  className="mt-1 w-full"
+                  placeholder="Select calculation methods"
+                />
 
-</div>
+              </div>
 
 
 
               <div>
-  <label htmlFor="imageUpload" className="block text-sm font-medium mb-1">
-    Product Image
-  </label>
- { !imagePreview &&  <input
-    type="file"
-    id="imageUpload"
-    name="imageUpload"
-    onChange={handleImageUpload}
-    accept="image/*"
-    className="mt-1 block w-full rounded-md border border-border"
-  />}
-  {imagePreview && (
-    <div className="mt-2 flex flex-col items-start gap-4">
-      <img
-        src={imagePreview}
-        alt="Product preview"
-        className="w-24 h-24 object-cover rounded-md"
-      />
-      <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={handleUpload}
-          className="px-4 py-2 text-sm font-medium bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-        >
-          Upload
-        </button>
-       {!isUploaded && <button
-          type="button"
-          onClick={handleImageRemove}
-          className="px-4 py-2 text-sm font-medium bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-        >
-          Remove Image
-        </button>}
-      </div>
-      {isUploaded && (
-        <span className="text-sm text-green-600">
-          Image uploaded successfully!
-        </span>
-      )}
-    </div>
-  )}
-</div>
+                <label htmlFor="imageUpload" className="block text-sm font-medium mb-1">
+                  Product Image
+                </label>
+                {!imagePreview && (
+                  <input
+                    type="file"
+                    id="imageUpload"
+                    name="imageUpload"
+                    onChange={handleImageUpload}
+                    accept="image/*"
+                    className="mt-1 block w-full rounded-md border border-border"
+                  />
+                )}
+                {imagePreview && (
+                  <div className="mt-2 flex flex-col items-start gap-4">
+                    <img
+                    src={imagePreview}
+                      alt="Product preview"
+                      className="w-24 h-24 object-cover rounded-md"
+                      onError={(e) => console.log('Image load error:', e)}
+                    />
+                    <div className="flex gap-2">
+                      {!isExistingImage && !isUploaded && (
+                        <button
+                          type="button"
+                          onClick={handleUpload}
+                          className="px-4 py-2 text-sm font-medium bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        >
+                          Upload
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={handleImageRemove}
+                        className="px-4 py-2 text-sm font-medium bg-red-600 text-white rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                    {isUploaded && !isExistingImage && (
+                      <span className="text-sm text-green-600">
+                        Image uploaded successfully!
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
 
 
             </div>
@@ -527,18 +595,27 @@ export default function AddProductForm() {
           </div>
 
           <div className="flex justify-end gap-4">
-          <button
+          
+            <Link to={`/admin/inventorymanagment/product/rawmaterialedit/${proid}`}>
+
+            <button
+              type="button"
+              className="bg-black text-white mr-2 dark:bg-white dark:text-black py-2 px-4 rounded-lg"
+            >
+              Edit
+             
+            </button>
+
+            <Link to={`/admin/inventorymanagment/product`}>
+            <button
               type="button"
               className="bg-black text-white dark:bg-white dark:text-black py-2 px-4 rounded-lg"
             >
               Cancel
             </button>
-            <button
-              type="submit"
-              className="bg-black text-white dark:bg-white dark:text-black py-2 px-4 rounded-lg"
-            >
-              Save
-            </button>
+            </Link>
+            </Link>
+            
           </div>
         </form>
       </div>

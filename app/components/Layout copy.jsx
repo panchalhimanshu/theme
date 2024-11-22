@@ -205,8 +205,8 @@ const Layout = ({ children }) => {
               className={`py-4 pt-5 w-56 mr-4 bg-white dark:bg-black dark:text-white text-black text-center text-2xl `}
             >
               <h1 className="text-[40px] ">
-                {/* <img src={respos} className="ml-10 -mb-1 " /> */}
-                Res<span className="text-gray-500">POS</span>
+                <img src={respos} className="ml-10 -mb-1 " />
+                {/* Res<span className="text-gray-500">POS</span> */}
               </h1>
             </div>
 
@@ -220,6 +220,9 @@ const Layout = ({ children }) => {
                 <ChevronLeft className="w-6 h-6 transform transition-transform duration-300 rotate-0" />
               )}
             </button>
+
+
+            <button className="border border-border p-2 ml-3 rounded-md font-semibold">Law Garden Outlet</button>
           </div>
           <div className="flex items-center">
             <button

@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import Layout from '../components/Layout';
 import { Link } from "@remix-run/react";
+import CallFor from "../utilities/CallFor";
 
 export default function Component() {
   const [activeTab, setActiveTab] = useState("raw-material");
   const [searchQuery, setSearchQuery] = useState("");
+  const [rawMaterials, setRawMaterials] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const rawMaterials = [
-    { id: "#0001", name: "Wheat", category: "Grains", course: "Raw", price: 50 },
-    { id: "#0002", name: "Sugar", category: "Sweetener", course: "Raw", price: 80 },
-  ];
+  
 
   const finishedGoods = [
     { id: "#0003", name: "Raju Masala", category: "Indian", course: "Starter", price: 100 },
@@ -21,6 +22,38 @@ export default function Component() {
     { id: "#0005", name: "Tomato Paste", category: "Condiment", course: "Semi-Finished", price: 70 },
     { id: "#0006", name: "Cheese", category: "Dairy", course: "Semi-Finished", price: 110 },
   ];
+
+  const fetchRawMaterials = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+
+      const response = await CallFor(`/products/filter`, 'post', JSON.stringify({
+        proname: searchQuery,
+        proconfig: 1,
+        page: 1,
+        limit: 10,
+      }), 'Auth');
+     
+
+      if (response.data.success) {
+        setRawMaterials(response.data.data);
+      } else {
+        setError("Failed to fetch raw materials");
+      }
+    } catch (err) {
+      setError(err.message || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab == "raw-material") {
+      fetchRawMaterials();
+    }
+  }, [activeTab]);
+
 
   const getTableData = () => {
     switch (activeTab) {
@@ -48,10 +81,10 @@ export default function Component() {
     }
   };
 
-  const getViewLink = () => {
+  const getViewLink = (proid) => {
     switch (activeTab) {
       case "raw-material":
-        return "/admin/inventorymanagment/product/rawmaterialview";
+        return `/admin/inventorymanagment/product/rawmaterialview/${proid}`;
       case "finished-goods":
         return "/admin/inventorymanagment/product/finishedgoodsview";
       case "semi-finished-goods":
@@ -111,33 +144,43 @@ export default function Component() {
           </button>
         </div>
 
-        <div className="border rounded-lg overflow-hidden dark:bg-gray-900">
+        <div className="border rounded-lg overflow-hidden dark:bg-black">
           <table className="w-full">
             <thead>
-              <tr className="bg-gray-50 dark:bg-gray-800">
+              <tr className="bg-gray-50 dark:bg-black">
                 <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Item Code</th>
                 <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Product Name</th>
-                <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Category</th>
-                <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Course</th>
-                <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Price</th>
+                <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Product Description</th>
                 <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Action</th>
               </tr>
             </thead>
             <tbody>
-              {getTableData().map((product) => (
-                <tr key={product.id} className="border-t dark:border-gray-700">
-                  <td className="p-2 text-sm">{product.id}</td>
-                  <td className="p-2 text-sm">{product.name}</td>
-                  <td className="p-2 text-sm">{product.category}</td>
-                  <td className="p-2 text-sm">{product.course}</td>
-                  <td className="p-2 text-sm">₹{product.price}</td>
-                  <td className="p-2">
-                    <Link to={getViewLink()} className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-blue-600">
+              {isLoading ? (
+                <tr>
+                  <td colSpan="3" className="p-2 text-center">Loading...</td>
+                </tr>
+              ) : error ? (
+                <tr>
+                  <td colSpan="3" className="p-2 text-center text-red-500">{error}</td>
+                </tr>
+              ) : getTableData().length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="p-2 text-center">No Data Available</td>
+                </tr>
+              ) : (
+                getTableData().map((product) => (
+                  <tr key={product.proid} className="border-t dark:border-gray-700">
+                    <td className="p-2 text-sm">{product.proid}</td>
+                    <td className="p-2 text-sm">{product.proname}</td>
+                    <td className="p-2 text-sm">{product.prodescription}</td>
+                    <td className="p-2">
+                    <Link to={getViewLink(product.proid)} className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none dark:text-blue-400 dark:hover:text-blue-600">
                       View
                     </Link>
                   </td>
-                </tr>
-              ))}
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
