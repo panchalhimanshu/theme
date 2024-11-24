@@ -4,6 +4,61 @@ import Layout from '../components/Layout';
 import { Link } from "@remix-run/react";
 import CallFor from "../utilities/CallFor";
 
+function FinishedGoodsTable({ data }) {
+  return (
+    <table className="w-full">
+      <thead>
+        <tr className="bg-gray-50 dark:bg-black">
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Item Code</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Product Name</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Category</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Course</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((product) => (
+          <tr key={product.id} className="border-t dark:border-gray-700">
+            <td className="p-2 text-sm">{product.id}</td>
+            <td className="p-2 text-sm">{product.name}</td>
+            <td className="p-2 text-sm">{product.category}</td>
+            <td className="p-2 text-sm">{product.course}</td>
+            <td className="p-2 text-sm">{product.price}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+
+function SemiFinishedGoodsTable({ data }) {
+  return (
+    <table className="w-full">
+      <thead>
+        <tr className="bg-gray-50 dark:bg-black">
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Item Code</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Product Name</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Category</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Course</th>
+          <th className="text-left p-2 font-medium text-gray-500 dark:text-gray-200">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((product) => (
+          <tr key={product.id} className="border-t dark:border-gray-700">
+            <td className="p-2 text-sm">{product.id}</td>
+            <td className="p-2 text-sm">{product.name}</td>
+            <td className="p-2 text-sm">{product.category}</td>
+            <td className="p-2 text-sm">{product.course}</td>
+            <td className="p-2 text-sm">{product.price}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 export default function Component() {
   const [activeTab, setActiveTab] = useState("raw-material");
   const [searchQuery, setSearchQuery] = useState("");
@@ -145,6 +200,7 @@ export default function Component() {
         </div>
 
         <div className="border rounded-lg overflow-hidden dark:bg-black">
+        {activeTab === "raw-material" && (
           <table className="w-full">
             <thead>
               <tr className="bg-gray-50 dark:bg-black">
@@ -182,7 +238,15 @@ export default function Component() {
                 ))
               )}
             </tbody>
-          </table>
+          </table>)}
+
+          {activeTab === "finished-goods" && (
+            <FinishedGoodsTable data={finishedGoods} />
+          )}
+          {activeTab === "semi-finished-goods" && (
+            <SemiFinishedGoodsTable data={semiFinishedGoods} />
+          )}
+          
         </div>
 
         <div className="flex justify-end mt-5">

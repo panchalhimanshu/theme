@@ -10,6 +10,7 @@ import type { LinksFunction } from "@remix-run/node";
 import "./tailwind.css";
 import { Link } from "@remix-run/react";
 import { json } from "@remix-run/node";
+import { toast, Toaster } from "react-hot-toast";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -62,5 +63,5 @@ export const ErrorBoundary = () => {
 };
 
 export default function App() {
-  return <Outlet />;
+  return (<><Toaster/> <Outlet /></>);
 }

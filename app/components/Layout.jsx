@@ -200,7 +200,7 @@ const Layout = ({ children }) => {
     <div
       className={`flex min-h-screen dark:bg-black dark:text-white  bg-white text-black'`}
     >
-      <Toaster />
+      {/* <Toaster /> */}
       <aside
         className={`fixed left-0 shadow dark:bg-black dark:text-white  bg-white text-black top-0 h-full   text-gray-80'}  border border-t-0 border-gray-300 ${
           isSidebarOpen ? "w-64 overflow-y-auto" : "w-18 "

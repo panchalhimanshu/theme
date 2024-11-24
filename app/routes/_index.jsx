@@ -63,7 +63,7 @@ export default function LoginPage() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2 bg-gray-100">
-       <Toaster />
+       {/* <Toaster /> */}
       {/* Left side - Illustration */}
       <div className="hidden items-center justify-center  p-8 lg:flex">
         <div className="relative h-full max-h-[500px] w-full">
